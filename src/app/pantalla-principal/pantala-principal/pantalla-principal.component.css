@@ -1,0 +1,17 @@
+#padre{
+  display: flex;
+  align-items: center;
+}
+
+#principal{
+  text-align: center;
+}
+
+#principal *{
+  margin: 10px;
+}
+
+img{
+margin: 8px;
+height: 220px;
+}
