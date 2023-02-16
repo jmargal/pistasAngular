@@ -14,13 +14,9 @@ const routes: Routes = [
     component: PantallaPrincipalComponent,
     pathMatch: 'full',
   },
-  {
+ {
     path: 'login',
     component: LoginComponent,
-  },
-  {
-    path: 'centers',
-    component: MainComponent
   },
   {
     path:'logout',
@@ -29,7 +25,15 @@ const routes: Routes = [
   {
     path: 'editUser',
     component:EditUserComponent
-  }
+  },
+  {
+    path: '',
+    loadChildren: () => import('../app/pistas/pistas.routing').then(m => m.PistasRoutingModule)
+  },
+
+
+
+
 
 ];
 

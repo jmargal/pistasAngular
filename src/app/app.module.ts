@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PantallaPrincipalModule } from './pantalla-principal/pantalla-principal.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CentresService } from './services/centres.service';
+import { CourtService } from './services/court.service';
 
 @NgModule({
   declarations: [
@@ -23,10 +26,11 @@ import { PantallaPrincipalModule } from './pantalla-principal/pantalla-principal
     RouterModule,
     AuthModule,
     NgbModule,
-    PantallaPrincipalModule
+    PantallaPrincipalModule,
+    HttpClientModule
 
   ],
-  providers: [],
+  providers: [CentresService,CourtService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

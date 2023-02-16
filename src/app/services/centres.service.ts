@@ -1,9 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Center } from '../../interfaces/Center.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CentresService {
+  private url: string = 'http://localhost:9100';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
+
+  getCentres(): Observable<Center[]> {
+    return this.http.get<Center[]>(`${this.url}/center/list`);
+  }
+
+
+
 }
