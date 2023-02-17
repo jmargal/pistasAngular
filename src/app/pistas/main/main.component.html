@@ -1,13 +1,11 @@
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div id="sidebar">
-        <app-sidebar [centerList]="centerList"></app-sidebar>
-      </div>
-      <div class="cols-md-9" id="cards">
-        <app-list></app-list>
-      </div>
-  </div>
+  <div class="row col-12">
+    <div class="col-sm-3" id="sidebar" >
+      <!--Llama a la funcion con el event emitter que es pistasde... -->
+      <app-sidebar [centerList]="centerList" (pistasDeEseCentro)="cargarPistas($event)"></app-sidebar>
+    </div>
+    <div class="col-sm-9" id="cards">
+      <app-list [courtList]="courtList"></app-list>
+    </div>
   </div>
 </div>
-
