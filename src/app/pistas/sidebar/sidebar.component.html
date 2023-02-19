@@ -5,9 +5,9 @@
     <!--Se ira imprimiendo el nombre de cada centro y al hacerle click se dispara el evento
     con el id de ese centro -->
     <li *ngFor="let center of centerList" class="list-group-item py-1" >
-      <h6 class="nav-link" aria-current="page" (click)="dispararEvento(center.idCentre)">
+      <a class="nav-link" aria-current="page" (click)="dispararEvento(center.idCentre)">
         {{center.name}}
-      </h6>
+      </a>
     </li>
   </ul>
   <hr>

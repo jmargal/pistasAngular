@@ -23,6 +23,10 @@ export class CourtService {
     return this.http.get<Court[]>(`${this.url}/court/list/${id}`)
   }
 
+  getCourt(id:number):Observable<Court>{
+    return this.http.get<Court>(`${this.url}/court/${id}`)
+  }
+
 
 
 }

@@ -6,6 +6,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { MainComponent } from './pistas/main/main.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantala-principal/pantalla-principal.component';
+import { ItemComponent } from './pistas/item/item.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: 'editUser',
     component:EditUserComponent
   },
+
   {
     path: '',
     loadChildren: () => import('../app/pistas/pistas.routing').then(m => m.PistasRoutingModule)

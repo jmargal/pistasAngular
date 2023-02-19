@@ -1,1 +1,30 @@
-<p>item works!</p>
+<div class="container">
+  <h1>Id of the Court: {{court.idCourt}}</h1>
+  <div class="row col-sm-12">
+    <div class="col-sm-6 col-md-8">
+      <img src="{{court.img}}" alt="">
+    </div>
+
+    <div class="d-inline col-sm-6 col-md-4">
+      <div class="col-sm-12">
+      <h1>Reserve this court now!</h1>
+      <form>
+        <div class="form-group">
+          <label for="uname">Id of court</label>
+          <input type="text" class="form-control" name="uname" id="uname" readonly value="{{court.idCourt}}">
+        </div>
+        <div class="form-group">
+          <label for="password">Sport</label>
+          <input type="text" class="form-control" id="password" name="password" readonly value="{{court.sport}}">
+        </div>
+        <div class="form-group">
+          <label for="price">Price per hour</label>
+          <input type="text" class="form-control" id="price" name="price" readonly value="{{court.price}}$">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    </div>
+  </div>
+</div>
+
