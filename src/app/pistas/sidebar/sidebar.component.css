@@ -2,4 +2,8 @@
  background-color: aliceblue;
  height: 100%;
  font-size: large;
+ border-radius: 5px;
+}
+span{
+ margin: 10px;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { User } from '../../interfaces/User.interface';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-edit-user',
@@ -7,9 +9,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor(private userrSvc:UserService) { }
+  constructor(private userSvc:UserService,private cookieSvc:CookieService) { }
 
+  editUser!:User;
   ngOnInit(): void {
+    this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
+      next:(resp)=>{
+        this.editUser=resp;
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
 }

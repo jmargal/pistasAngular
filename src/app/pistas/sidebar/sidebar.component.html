@@ -1,11 +1,11 @@
 <div class="d-flex flex-column flex-shrink-0 p-3" id="principal">
   <span class="fs-4">List of centers</span>
-  <ul class="collapse show list-group list-group-flush">
+  <ul class="list-group">
     <li (click)="dispararEvento(0)" class="list-group-item py-1">All centers</li>
     <!--Se ira imprimiendo el nombre de cada centro y al hacerle click se dispara el evento
     con el id de ese centro -->
-    <li *ngFor="let center of centerList" class="list-group-item py-1" >
-      <a class="nav-link" aria-current="page" (click)="dispararEvento(center.idCentre)">
+    <li *ngFor="let center of centerList" class="list-group-item" >
+      <a class="nav-link" (click)="dispararEvento(center.idCentre)">
         {{center.name}}
       </a>
     </li>

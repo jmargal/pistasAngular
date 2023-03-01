@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CourtService {
+export class AuthService {
   private url: string = 'http://localhost:9100';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -16,12 +17,7 @@ export class CourtService {
   constructor(private http: HttpClient, private cookieSvc: CookieService) {}
 
   hacerLogin(username: string, password: string) {
-    return this.http
-      .post<InterfaceLogin>(
-        `${this.url}/login`,
-        { username: username, password: password },
-        this.httpOptions
-      )
+    return this.http.post<InterfaceLogin>(`${this.url}/signin`,{username,password },this.httpOptions)
       .pipe(
         //El switchMap recoge un observable, lo trata y devuelve otro
         switchMap((token) => {
@@ -33,6 +29,7 @@ export class CourtService {
         catchError((error) => {
           //Si hay algun error borra de las cookies
           this.cookieSvc.delete('token');
+          this.cookieSvc.delete('username');
           return of(false);
         })
       );
@@ -47,6 +44,7 @@ export class CourtService {
       }),
       catchError((err) => {
         this.cookieSvc.delete('token');
+
         return of(false);
       })
     );

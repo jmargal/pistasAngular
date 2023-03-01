@@ -1,6 +1,6 @@
   <div class="card-deck" >
     <div class="card carta" *ngFor="let court of courtList">
-      <img class="card-img-top" src="../../../assets/6-Pistas-de-Padel-de-Cristal.jpg" alt="Card image cap">
+      <img class="card-img-top" src="{{court.img}}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Id: {{court.idCourt}}</h5>
       </div>
@@ -9,7 +9,7 @@
         <li class="list-group-item">Price of court: {{court.price}}</li>
       </ul>
       <div class="card-body">
-        <a href="#" class="card-link">View disponibility</a>
+        <a  routerLink="/court/{{court.idCourt}}" class="card-link">View disponibility</a>
       </div>
       </div>
     </div>

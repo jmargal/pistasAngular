@@ -3,4 +3,5 @@ export interface User{
   password: string;
   completeName: string;
   email: string;
+  role: string;
 }

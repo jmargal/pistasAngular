@@ -7,6 +7,7 @@ import { MainComponent } from './pistas/main/main.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantala-principal/pantalla-principal.component';
 import { ItemComponent } from './pistas/item/item.component';
+import { RegisterComponent } from './register/register/register.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
  {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'signup',
+    component: RegisterComponent,
   },
   {
     path:'logout',

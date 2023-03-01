@@ -21,6 +21,10 @@ export class UserService {
     return this.http.get<User>(`${this.url}/user/${nick}`)
   }
 
+  updateUser(user:User){
+
+  }
+
 
 
 }

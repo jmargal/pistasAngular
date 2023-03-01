@@ -1,4 +1,6 @@
 img{
-  max-height: 370px;
-  max-width: 580px;
+  border-radius: 2%;
+  margin-top: 15%;
+  max-height: 100%;
+  max-width: 100%;
 }

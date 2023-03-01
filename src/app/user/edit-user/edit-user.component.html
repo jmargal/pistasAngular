@@ -9,12 +9,19 @@
       <form>
         <div class="form-group">
           <label for="uname">User name</label>
-          <!-- <input type="text" class="form-control" name="uname" id="uname" [(ngModel)]="name" placeholder="Enter name"> -->
+          <input type="text" class="form-control" name="uname" id="uname" [(ngModel)]="editUser.username" readonly>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <!-- <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" -->
-
+          <label for="password">Role</label>
+          <input type="text" class="form-control" id="password" name="password" [(ngModel)]="editUser.role" readonly>
+        </div>
+        <div class="form-group">
+          <label for="cName">Complete Name</label>
+          <input type="text" class="form-control" id="cName" name="cName" [(ngModel)]="editUser.completeName">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="editUser.email">
         </div><br>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
