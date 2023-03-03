@@ -7,7 +7,7 @@ import { Court } from "src/app/interfaces/Court.interface";
   providedIn: 'root'
 })
 export class CourtService {
-  private url: string = 'http://localhost:9100';
+  private url: string = 'https://pistasapi-production.up.railway.app';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

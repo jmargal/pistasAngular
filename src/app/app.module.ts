@@ -16,6 +16,8 @@ import { UserService } from './services/user.service';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthService } from './services/auth.service';
 import { UserModule } from './user/user.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterModule } from './register/register.module';
 
 
 @NgModule({
@@ -33,7 +35,10 @@ import { UserModule } from './user/user.module';
     NgbModule,
     PantallaPrincipalModule,
     HttpClientModule,
-    FullCalendarModule
+    FullCalendarModule,
+    ReactiveFormsModule,
+    RegisterModule
+
 
   ],
   providers: [CentresService,CourtService,UserService,AuthService,{

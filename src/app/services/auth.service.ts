@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
-import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private url: string = 'http://localhost:9100';
+  private url: string = 'https://pistasapi-production.up.railway.app';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -49,4 +49,12 @@ export class AuthService {
       })
     );
   }
+
+  logout(){
+    this.cookieSvc.delete('token')
+    this.cookieSvc.delete('username')
+
+  }
+
+
 }

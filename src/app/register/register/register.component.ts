@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-register',
@@ -7,9 +12,74 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formbuilder: FormBuilder,private userSvc:UserService,private router:Router,private authSvc:AuthService,
+     private cookieSvc: CookieService) { }
+
+  myForm: FormGroup = this.formbuilder.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    cName: ['', [Validators.required,Validators.minLength(8)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required,Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)]],
+    repeatPassword: ['', [Validators.required]],
+  });
 
   ngOnInit(): void {
+  }
+
+  isValidName() {
+    return (
+      this.myForm?.controls['name'].errors &&
+      this.myForm?.controls['name'].touched
+    );
+  }
+
+  isValidEmail() {
+    return (
+      this.myForm?.controls['email'].touched &&
+      this.myForm?.controls['email'].errors
+    );
+  }
+
+  isValidCname() {
+    return (
+      this.myForm?.controls['cName'].errors &&
+      this.myForm?.controls['cName'].touched
+    );
+  }
+
+  isSecurePassword() {
+    return (
+      this.myForm?.controls['password'].errors &&
+      this.myForm?.controls['password'].touched
+    );
+  }
+
+  isTheSamePassword(){
+    return this.myForm.controls['repeatPassword'].touched && this.myForm.controls['repeatPassword'].value!==this.myForm.controls['password'].value
+   }
+
+  add(){
+    let nick=this.myForm.controls['name'].value;
+    let completeName=this.myForm.controls['cName'].value;
+    let email=this.myForm.controls['email'].value;
+    let password=this.myForm.controls['password'].value;
+    this.userSvc.addUser(nick,completeName,email,password).subscribe({
+      next:(resp)=>{
+        this.router.navigate(['/centers']);
+        this.authSvc.hacerLogin(nick,password).subscribe({
+          next: (resp)=>{
+            this.cookieSvc.set('username', nick);
+
+          },
+          error:(err)=>{
+            console.log(err);
+          }
+        })
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
 }

@@ -2,30 +2,51 @@
   <div class="row col-sm-12">
     <div class="d-inline col-sm-3">
       <div class="col-sm-12">
-      <h1>Sign up!</h1>
-      <form>
-        <div class="form-group">
-          <label for="uname">User name</label>
-          <input type="text" class="form-control" name="uname" id="uname"  readonly>
-        </div>
-        <div class="form-group">
-          <label for="password">Role</label>
-          <input type="text" class="form-control" id="password" name="password"  readonly>
-        </div>
-        <div class="form-group">
-          <label for="cName">Complete Name</label>
-          <input type="text" class="form-control" id="cName" name="cName" >
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email">
-        </div><br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+        <h1>Sign up!</h1>
+        <form [formGroup]="myForm" (ngSubmit)="add()">
+          <div class="form-group">
+            <label for="uname">User name</label>
+            <input type="text" class="form-control" id="uname" formControlName="name">
+            <span class="form-text text-danger" *ngIf="isValidName()">
+              Min length 3
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="cName">Complete Name</label>
+            <input type="text" class="form-control" id="cName" formControlName="cName">
+            <span class="form-text text-danger" *ngIf="isValidCname()">
+              Min length 8
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <span class="form-text text-danger" *ngIf="isValidEmail()">
+              Not valid email
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <span class="form-text text-danger" *ngIf="isSecurePassword()">
+              Password must be between 8 and 16 characters and include at least one digit,a lowercase and an uppercase
+              letter
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="password">Confirm password</label>
+            <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword">
+            <span class="form-text text-danger" *ngIf="isTheSamePassword()">
+              The password doesn't match
+            </span>
+          </div><br>
+          <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+        </form>
+      </div>
     </div>
     <div id="foto" class="d-inline col-sm-8">
-      <img class="d-block w-100 img-fluid rounded" src="https://www.one15marina.com/puteriharbour/wp-content/uploads/2020/07/estuari-sports-centre-aerial-view-e1604887139211.jpg">
+      <img class="d-block w-100 img-fluid rounded"
+        src="https://www.one15marina.com/puteriharbour/wp-content/uploads/2020/07/estuari-sports-centre-aerial-view-e1604887139211.jpg">
     </div>
   </div>
 </div>
