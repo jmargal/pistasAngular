@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Court } from 'src/app/interfaces/Court.interface';
 import { CourtService } from '../../services/court.service';
-import { CalendarOptions, DateSelectArg } from '@fullcalendar/core'; // useful for typechecking
+import { Calendar, CalendarOptions, DateSelectArg } from '@fullcalendar/core'; // useful for typechecking
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { Reservation } from '../../interfaces/Reservation.interface';
+import { start } from '@popperjs/core';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarContext } from '@fullcalendar/core/internal';
 
 @Component({
   selector: 'app-item',
@@ -15,8 +19,9 @@ import listPlugin from '@fullcalendar/list';
 })
 export class ItemComponent implements OnInit {
   court!: Court;
+  reservations!:Reservation[]
 
-  calendarVisible = true;
+
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridFourDay',
     showNonCurrentDates: false,
@@ -39,7 +44,10 @@ export class ItemComponent implements OnInit {
         duration: { days: 4 },
       },
     },
+    events:this.chargeEvents()
   };
+
+
 
   constructor(private route: ActivatedRoute, private courtSvc: CourtService) {}
 
@@ -53,6 +61,7 @@ export class ItemComponent implements OnInit {
         console.log(err);
       },
     });
+    this.paintCalendar();
   }
 
   handleDateClick(arg: any) {
@@ -72,4 +81,34 @@ export class ItemComponent implements OnInit {
       });
     }
   }
+
+  paintCalendar(){
+    const id = this.route.snapshot.params['id'];
+    this.courtSvc.getBusyDates(id).subscribe({
+      next:(resp)=>{
+        this.reservations=resp;
+        console.log(this.chargeEvents())
+        console.log(this.calendarOptions.events)
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+
+  }
+
+  chargeEvents(){
+    let ocupadas=[]
+    for(let i=0;i<this.reservations.length;i++){
+      let hora=this.reservations[i].hour.split('-');
+        let ocupado = {
+        id:i.toString(),
+        title: "OCUPADA",
+        start: `${this.reservations[i].fechaReserva}T${hora[0]}`,
+        end:`${this.reservations[i].fechaReserva}T${hora[1]}`
+      };
+      ocupadas.push(ocupado)
+  }
+  return ocupadas
+}
 }

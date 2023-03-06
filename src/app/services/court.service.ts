@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Court } from "src/app/interfaces/Court.interface";
+import { Reservation } from "../interfaces/Reservation.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ export class CourtService {
   getCourt(id:number):Observable<Court>{
     return this.http.get<Court>(`${this.url}/court/${id}`)
   }
+
+  getBusyDates(id:number):Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(`${this.url}/reservation/court/${id}`)
+  }
+
+  // makeReservation(username:string,idCourt:number,idHorary):Observable<any>{
+  //   return this.http.post<any>(`${this.url}/reservation`,{})
+  // }
 
 
 
