@@ -11,7 +11,7 @@ import { Reservation } from '../../interfaces/Reservation.interface';
 import { start } from '@popperjs/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarContext } from '@fullcalendar/core/internal';
-import { INITIAL_EVENTS } from './event.utils';
+
 
 @Component({
   selector: 'app-item',

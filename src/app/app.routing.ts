@@ -7,6 +7,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { PantallaPrincipalComponent } from './pantalla-principal/pantala-principal/pantalla-principal.component';
 import { ItemComponent } from './pistas/item/item.component';
 import { RegisterComponent } from './register/register/register.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'editUser',
+    canActivate:[AuthGuard],
     component:EditUserComponent
   },
 

@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -21,7 +22,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CommonModule,
     FormsModule,
     RouterModule,
-    FullCalendarModule
+    FullCalendarModule,
+    TableModule
   ],
   exports:[
     ListComponent,

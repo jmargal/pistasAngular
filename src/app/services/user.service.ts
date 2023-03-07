@@ -21,8 +21,14 @@ export class UserService {
     return this.http.get<User>(`${this.url}/user/${nick}`)
   }
 
-  updateUser(user:User){
-
+  updateUser(name:string,completeName:string,role:string, email:string, password:string){
+    if(password!==''){
+      return this.http.put<any>(`${this.url}/updateUser/${name}`,{email,completeName,password,role})
+    }
+    else{
+      console.log({email,completeName,role})
+      return this.http.put<any>(`${this.url}/updateUser/${name}`,{email,completeName,role})
+    }
   }
 
   addUser(nick:string,completeName:string,email:string,password:string):Observable<User>{

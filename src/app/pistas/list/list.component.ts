@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Court } from 'src/app/interfaces/Court.interface';
 import { CourtService } from '../../services/court.service';
+import {TableModule} from 'primeng/table';
+
 
 @Component({
   selector: 'app-list',

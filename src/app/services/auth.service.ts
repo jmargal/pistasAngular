@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
+import { User } from '../interfaces/User.interface';
 
 
 @Injectable({

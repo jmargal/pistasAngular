@@ -15,7 +15,10 @@ export class LoginComponent implements OnInit {
 
   logged: boolean = false;
 
-  constructor(private authSvc: AuthService, private router: Router,private cookieSvc:CookieService) {}
+  constructor(private authSvc: AuthService, private router: Router,private cookieSvc:CookieService,
+    ) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
   ngOnInit(): void {}
 
@@ -40,6 +43,7 @@ export class LoginComponent implements OnInit {
             clearInterval(timerInterval);
           },
         }).then((result) => {
+
           this.router.navigate(['/centers']);
         });
       } else {
