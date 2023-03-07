@@ -28,9 +28,10 @@ export class CourtService {
     return this.http.get<Court>(`${this.url}/court/${id}`)
   }
 
-  getBusyDates(id:number):Observable<Reservation[]>{
+  public getBusyDates(id:number):Observable<Reservation[]>{
     return this.http.get<Reservation[]>(`${this.url}/reservation/court/${id}`)
   }
+
 
   // makeReservation(username:string,idCourt:number,idHorary):Observable<any>{
   //   return this.http.post<any>(`${this.url}/reservation`,{})

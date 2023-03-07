@@ -16,7 +16,6 @@ export class EditUserComponent implements OnInit {
     console.log(this.cookieSvc.get("username"));
     this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
       next:(resp)=>{
-        console.log(resp);
         this.editUser=resp;
       },
       error:(err)=>{

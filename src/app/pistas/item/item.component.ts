@@ -11,6 +11,7 @@ import { Reservation } from '../../interfaces/Reservation.interface';
 import { start } from '@popperjs/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarContext } from '@fullcalendar/core/internal';
+import { INITIAL_EVENTS } from './event.utils';
 
 @Component({
   selector: 'app-item',
@@ -18,8 +19,12 @@ import { CalendarContext } from '@fullcalendar/core/internal';
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent implements OnInit {
+  constructor(private route: ActivatedRoute, private courtSvc: CourtService) {}
+
+
   court!: Court;
-  reservations!:Reservation[]
+  id:number=this.route.snapshot.params['id'];
+  reservations:Reservation[]=[]
 
 
   calendarOptions: CalendarOptions = {
@@ -44,16 +49,14 @@ export class ItemComponent implements OnInit {
         duration: { days: 4 },
       },
     },
-    events:this.chargeEvents()
+
   };
 
 
 
-  constructor(private route: ActivatedRoute, private courtSvc: CourtService) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.courtSvc.getCourt(id).subscribe({
+    this.courtSvc.getCourt(this.id).subscribe({
       next: (resp) => {
         this.court = resp;
       },
@@ -83,12 +86,11 @@ export class ItemComponent implements OnInit {
   }
 
   paintCalendar(){
-    const id = this.route.snapshot.params['id'];
-    this.courtSvc.getBusyDates(id).subscribe({
+    //Va a cargar las reservas en la propia lista de reservas del componente
+    this.courtSvc.getBusyDates(this.id).subscribe({
       next:(resp)=>{
         this.reservations=resp;
-        console.log(this.chargeEvents())
-        console.log(this.calendarOptions.events)
+        this.calendarOptions.events=this.chargeEvents()
       },
       error:(err)=>{
         console.log(err);
@@ -97,6 +99,7 @@ export class ItemComponent implements OnInit {
 
   }
 
+  //Transforma las reservas que estan en la lista del componente en objetos para el calendar
   chargeEvents(){
     let ocupadas=[]
     for(let i=0;i<this.reservations.length;i++){
