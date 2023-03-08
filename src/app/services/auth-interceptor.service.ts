@@ -10,6 +10,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class AuthInterceptorService implements HttpInterceptor{
 
   constructor(private cookieSvc: CookieService, private router: Router) { }
+
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.cookieSvc.get('token');
     let request = req;

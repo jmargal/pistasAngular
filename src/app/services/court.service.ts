@@ -33,9 +33,9 @@ export class CourtService {
   }
 
 
-  // makeReservation(username:string,idCourt:number,idHorary):Observable<any>{
-  //   return this.http.post<any>(`${this.url}/reservation`,{})
-  // }
+  makeReservation(username:string,idCourt:number,idHorary:string,dateStamp:string,reserveDate:string):Observable<any>{
+    return this.http.post<any>(`${this.url}/reservation`,{username,idCourt,idHorary,dateStamp,reserveDate})
+  }
 
 
 

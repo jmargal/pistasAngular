@@ -3,6 +3,7 @@ import { User } from 'src/app/interfaces/User.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -15,12 +16,10 @@ export class NavbarComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
-  thereIsUser:boolean=false;
+  isLoggedIn$!: Observable<boolean>;
 
   ngOnInit(): void {
-    if(this.cookieSvc.get('username')){
-      this.thereIsUser=true;
-    }
+    this.isLoggedIn$ = this.authSvc.isLoggedIn;
 
   }
 

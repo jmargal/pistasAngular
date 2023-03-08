@@ -1,23 +1,23 @@
 <nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="nav-link" [routerLink]="['']"><img src="../../../assets/Sport_balls.svg.png" class="img-fluid" alt="Responsive image" width="50px" height="10px"></a>
+    <a class="nav-link" [routerLink]="['']"><img src="assets/Sport_balls.svg.png" class="img-fluid" alt="Responsive image" width="50px" height="10px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li *ngIf="!thereIsUser">
+        <li *ngIf="!(isLoggedIn$|async)">
           <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
         </li>
-        <li *ngIf="thereIsUser">
+        <li *ngIf="isLoggedIn$|async">
           <a class="nav-link" [routerLink]="['/editUser']" routerLinkActive="active">MyUser</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/centers']" routerLinkActive="active">Centers</a>
         </li>
       </ul>
-      <span class="navbar-text">
+      <span class="navbar-text" *ngIf="isLoggedIn$|async">
         <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" (click)="hacerLogout()" >Logout</a>
       </span>
     </div>

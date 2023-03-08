@@ -69,19 +69,25 @@ export class ItemComponent implements OnInit {
     this.handleDateSelect(arg)
   }
 
-  handleDateSelect(selectInfo: DateSelectArg) {
+  handleDateSelect(selectInfo:any) {
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
 
     if (title) {
-      let now = moment().format("YYYY-MM-DD");
-      console.log(now);
+      let dateStamp= moment().format('YYYY-MM-DD')
+      let format=selectInfo.dateStr
+      let soloFecha=format.split('T')
+      let fechaReserva=format.split('+')
+      console.log("idHorary: "+fechaReserva[0]);
+      console.log("datestamp: "+dateStamp)
+      console.log("reserveDate: "+soloFecha[0])
+
       // calendarApi.addEvent({
       //   title:"OCUPADA",
-      //   start: now.getHours(),
-      //   end:now.setHours(horaPlusOne)
+      //   start: format.getHours(),
+      //   end:format.setHours(format.getHours()+1)
       // });
     }
   }

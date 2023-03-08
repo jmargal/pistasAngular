@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
 import { User } from '../interfaces/User.interface';
@@ -17,6 +17,12 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieSvc: CookieService) {}
 
+  private loggedIn = new BehaviorSubject<boolean> (false);
+
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
+
   hacerLogin(username: string, password: string) {
     return this.http.post<InterfaceLogin>(`${this.url}/signin`,{username,password },this.httpOptions)
       .pipe(
@@ -24,6 +30,7 @@ export class AuthService {
         switchMap((token) => {
           //Guarda en las cookies el token que recoge de la peticion de antes
           this.cookieSvc.set('token', token.access_token);
+          this.loggedIn.next(true);
           //Devuelve observable de true
           return of(true);
         }),
@@ -52,6 +59,7 @@ export class AuthService {
   }
 
   logout(){
+    this.loggedIn.next(false);
     this.cookieSvc.delete('token')
     this.cookieSvc.delete('username')
 
