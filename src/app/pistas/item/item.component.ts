@@ -8,9 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { Reservation } from '../../interfaces/Reservation.interface';
-import { start } from '@popperjs/core';
-import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarContext } from '@fullcalendar/core/internal';
+const moment = require('moment');
 
 
 @Component({
@@ -68,7 +66,7 @@ export class ItemComponent implements OnInit {
   }
 
   handleDateClick(arg: any) {
-    alert('date click! ' + arg.dateStr);
+    this.handleDateSelect(arg)
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -78,10 +76,13 @@ export class ItemComponent implements OnInit {
     calendarApi.unselect(); // clear date selection
 
     if (title) {
-      calendarApi.addEvent({
-        title,
-        start: Date.now(),
-      });
+      let now = moment().format("YYYY-MM-DD");
+      console.log(now);
+      // calendarApi.addEvent({
+      //   title:"OCUPADA",
+      //   start: now.getHours(),
+      //   end:now.setHours(horaPlusOne)
+      // });
     }
   }
 
@@ -107,8 +108,8 @@ export class ItemComponent implements OnInit {
         let ocupado = {
         id:i.toString(),
         title: "OCUPADA",
-        start: `${this.reservations[i].fechaReserva}T${hora[0]}`,
-        end:`${this.reservations[i].fechaReserva}T${hora[1]}`
+        start: `${this.reservations[i].fechaReservada}T${hora[0]}`,
+        end:`${this.reservations[i].fechaReservada}T${hora[1]}`
       };
       ocupadas.push(ocupado)
   }

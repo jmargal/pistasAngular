@@ -26,6 +26,7 @@ export class AuthInterceptorService implements HttpInterceptor{
         if (err.status === 401) {
           console.log(err);
         }
+        alert("You must be signed to access here")
         return throwError(err);
       })
     );
