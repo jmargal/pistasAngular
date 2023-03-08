@@ -4,7 +4,7 @@ import { ListComponent } from './list/list.component';
 import { ItemComponent } from './item/item.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from './main/main.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TableModule } from 'primeng/table';
@@ -23,7 +23,8 @@ import { TableModule } from 'primeng/table';
     FormsModule,
     RouterModule,
     FullCalendarModule,
-    TableModule
+    TableModule,
+    ReactiveFormsModule
   ],
   exports:[
     ListComponent,

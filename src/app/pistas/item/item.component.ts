@@ -8,6 +8,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { Reservation } from '../../interfaces/Reservation.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { User } from 'src/app/interfaces/User.interface';
+import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 const moment = require('moment');
 
 
@@ -17,13 +22,17 @@ const moment = require('moment');
   styleUrls: ['./item.component.css'],
 })
 export class ItemComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private courtSvc: CourtService) {}
+  constructor(private route: ActivatedRoute, private courtSvc: CourtService,
+    private formBld:FormBuilder,private userSvc:UserService,private cookieSvc:CookieService)
+    {
+
+    }
 
 
   court!: Court;
   id:number=this.route.snapshot.params['id'];
   reservations:Reservation[]=[]
-
+  user!:User;
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridFourDay',
@@ -50,7 +59,13 @@ export class ItemComponent implements OnInit {
 
   };
 
-
+  myForm:FormGroup=this.formBld.group({
+    username:['',[Validators.required]],
+    idCourt:['',[Validators.required]],
+    idHorary:['',[Validators.required]],
+    dateStamp:['',[Validators.required]],
+    reserveDate:['',[Validators.required]]
+  })
 
 
   ngOnInit(): void {
@@ -62,6 +77,15 @@ export class ItemComponent implements OnInit {
         console.log(err);
       },
     });
+    this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
+      next:(resp)=>{
+        this.user=resp;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+
     this.paintCalendar();
   }
 
@@ -70,26 +94,34 @@ export class ItemComponent implements OnInit {
   }
 
   handleDateSelect(selectInfo:any) {
-    const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      let dateStamp= moment().format('YYYY-MM-DD')
-      let format=selectInfo.dateStr
+      const dateStamp= moment().format('YYYY-MM-DD')
+      const format=selectInfo.dateStr
       let soloFecha=format.split('T')
       let fechaReserva=format.split('+')
-      console.log("idHorary: "+fechaReserva[0]);
-      console.log("datestamp: "+dateStamp)
-      console.log("reserveDate: "+soloFecha[0])
+      let fechaMensaje=soloFecha[1].split('+')
+      this.myForm.controls['idHorary'].setValue(fechaReserva[0]);
+      this.myForm.controls['dateStamp'].setValue(dateStamp);
+      this.myForm.controls['reserveDate'].setValue(soloFecha[0]);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `You will reserve this court on
+              ${soloFecha[0]} at ${fechaMensaje[0]}`,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Make reserve!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Reserve complete!',
+            'Your reservation has been addedd successfully',
+            'success'
+          )
+          this.addReserve()
+        }
+      })
 
-      // calendarApi.addEvent({
-      //   title:"OCUPADA",
-      //   start: format.getHours(),
-      //   end:format.setHours(format.getHours()+1)
-      // });
-    }
   }
 
   paintCalendar(){
@@ -121,4 +153,21 @@ export class ItemComponent implements OnInit {
   }
   return ocupadas
 }
+
+  addReserve(){
+    const username=this.user.username
+    const idCourt=this.court.idCourt
+    const idHorary=this.myForm.controls['idHorary'].value
+    const dateStamp=this.myForm.controls['dateStamp'].value
+    const reserveDate=this.myForm.controls['reserveDate'].value
+    this.courtSvc.makeReservation(username,idCourt,idHorary,dateStamp,reserveDate).subscribe({
+      next:(resp)=>{
+        console.log(resp)
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+
 }
