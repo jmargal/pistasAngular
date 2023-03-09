@@ -16,12 +16,16 @@ export class NavbarComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
-  isLoggedIn$!: Observable<boolean>;
+  isLoggedIn$!: boolean;
 
 
   ngOnInit(): void {
     //Llama al Svc para comprobar si hay user autenticado para saber que mostrar en el navbar
-    this.isLoggedIn$ = this.authSvc.isLoggedIn;
+    this.authSvc.isLoggedIn.subscribe({
+      next:(resp)=>{
+        this.isLoggedIn$=resp;
+      }
+    })
   }
 
   //Llama al logout del service
