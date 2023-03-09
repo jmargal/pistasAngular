@@ -5,7 +5,7 @@
       <img src="{{court.img}}" alt="Image of the court">
     </div> -->
     <div id="calendar" class="col-sm-8 col-md-8" *ngIf="reservations">
-      <full-calendar [options]="calendarOptions" ></full-calendar>
+      <full-calendar id="calendario" [options]="calendarOptions" ></full-calendar>
     </div>
     <div class=" col-sm-4 col-md-4">
       <div class="col-sm-12">
@@ -24,6 +24,8 @@
             <input type="text" class="form-control"readonly value="{{court.price}}$">
           </div>
         </form>
+
+        <a class="btn btn-primary" routerLink="/centers">Go back</a>
       </div>
     </div>
   </div>

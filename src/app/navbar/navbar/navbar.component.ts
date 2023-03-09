@@ -18,13 +18,14 @@ export class NavbarComponent implements OnInit {
 
   isLoggedIn$!: Observable<boolean>;
 
-  ngOnInit(): void {
-    this.isLoggedIn$ = this.authSvc.isLoggedIn;
 
+  ngOnInit(): void {
+    //Llama al Svc para comprobar si hay user autenticado para saber que mostrar en el navbar
+    this.isLoggedIn$ = this.authSvc.isLoggedIn;
   }
 
+  //Llama al logout del service
   hacerLogout(){
     this.authSvc.logout();
   }
-
 }

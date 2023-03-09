@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.2.0",
+    "@angular/cdk": "^14.2.7",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
     "@angular/core": "^14.2.0",
@@ -41,6 +42,7 @@
     "moment": "^2.29.4",
     "ngx-cookie-service": "^14.0.1",
     "open-iconic": "^1.1.1",
+    "primeicons": "^6.0.1",
     "primeng": "^14.2.3",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.7.2",
@@ -49,7 +51,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.8",
-    "@angular/cli": "^15.0.3",
+    "@angular/cli": "^15.2.2",
     "@angular/compiler-cli": "^14.2.0",
     "@types/jasmine": "~4.0.0",
     "jasmine-core": "~4.3.0",

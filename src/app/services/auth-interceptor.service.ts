@@ -13,9 +13,12 @@ export class AuthInterceptorService implements HttpInterceptor{
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //Toma de las cookies el token
     const token = this.cookieSvc.get('token');
     let request = req;
+    //Si hay token le pone delante Bearer
     if (token) {
+      //Se clona la cabecera para enviarla porque son inmutables
       request = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
@@ -24,11 +27,11 @@ export class AuthInterceptorService implements HttpInterceptor{
     }
     return next.handle(request)
     .pipe(
+      //Captura el error y lo imprime
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
           console.log(err);
         }
-        alert("You must be signed to access here")
         return throwError(err);
       })
     );

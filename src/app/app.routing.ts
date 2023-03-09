@@ -8,6 +8,8 @@ import { PantallaPrincipalComponent } from './pantalla-principal/pantala-princip
 import { ItemComponent } from './pistas/item/item.component';
 import { RegisterComponent } from './register/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
+import { CentersComponent } from './management/centers/centers.component';
+import { RolGuard } from './guards/rol.guard';
 
 
 const routes: Routes = [
@@ -29,11 +31,20 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     component:EditUserComponent
   },
-
+  {
+    path:'manage/centers',
+    canActivate:[RolGuard],
+    component:CentersComponent
+  },
   {
     path: '',
     loadChildren: () => import('../app/pistas/pistas.routing').then(m => m.PistasRoutingModule)
   },
+  {
+    path:'**',
+    component: PantallaPrincipalComponent,
+
+  }
 
 
 

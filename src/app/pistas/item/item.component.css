@@ -1,3 +1,11 @@
+#calendario{
+  max-height: 425px;
+}
+
+a{
+  margin-top: 40px;
+}
+
 img{
   border-radius: 2%;
   margin-top: 15%;

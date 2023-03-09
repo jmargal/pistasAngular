@@ -16,6 +16,9 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/centers']" routerLinkActive="active">Centers</a>
         </li>
+        <li *ngIf="isLoggedIn$|async">
+          <a class="nav-link" [routerLink]="['/manage/centers']" routerLinkActive="active">Manage Centers</a>
+        </li>
       </ul>
       <span class="navbar-text" *ngIf="isLoggedIn$|async">
         <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" (click)="hacerLogout()" >Logout</a>

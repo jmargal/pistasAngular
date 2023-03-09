@@ -30,26 +30,33 @@ export class ItemComponent implements OnInit {
 
 
   court!: Court;
+  //Parametro del id de la pista
   id:number=this.route.snapshot.params['id'];
   reservations:Reservation[]=[]
   user!:User;
 
+  //Opciones del calendario al iniciarse
   calendarOptions: CalendarOptions = {
-    initialView: 'timeGridFourDay',
-    showNonCurrentDates: false,
-    slotDuration: '00:60:00',
-    slotLabelInterval: { hours: 1 },
-    slotMinTime: '09:00:00',
-    slotMaxTime: '20:00:00',
+    initialView: 'timeGridFourDay', //Se muestran 4 dias
+    validRange:function(nowDate){ //Solo se muestra de hoy hacia delante
+      return{
+        start:nowDate
+      }
+    },
+    showNonCurrentDates: true,
+    slotDuration: '00:60:00', //Cada celda dura una hora
+    slotLabelInterval: { hours: 1 }, //Se muestran las celdas cada hora
+    slotMinTime: '09:00:00', //Empieza a las 9:00
+    slotMaxTime: '20:00:00', //Acaba a las 20:00
     slotLabelFormat: {
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false,
+      hour12: false, //Muestra en formato 24H
       meridiem: 'short',
     },
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin],
-    dateClick: this.handleDateClick.bind(this), // MUST ensure `this` context is maintained
-    editable: false,
+    dateClick: this.handleDateClick.bind(this),
+    editable: false, //Los eventos ocupados no se pueden editar
     views: {
       timeGridFourDay: {
         type: 'timeGrid',
@@ -59,6 +66,7 @@ export class ItemComponent implements OnInit {
 
   };
 
+  //Formulario para hacer la reserva
   myForm:FormGroup=this.formBld.group({
     username:['',[Validators.required]],
     idCourt:['',[Validators.required]],
@@ -67,7 +75,7 @@ export class ItemComponent implements OnInit {
     reserveDate:['',[Validators.required]]
   })
 
-
+  //Al iniciarse obtiene la pista
   ngOnInit(): void {
     this.courtSvc.getCourt(this.id).subscribe({
       next: (resp) => {
@@ -77,6 +85,7 @@ export class ItemComponent implements OnInit {
         console.log(err);
       },
     });
+    //Al iniciarse obtiene el usuario logueado
     this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
       next:(resp)=>{
         this.user=resp;
@@ -85,15 +94,16 @@ export class ItemComponent implements OnInit {
         console.log(err);
       }
     })
-
+    //Pinta con las reservas ya hechas
     this.paintCalendar();
   }
-
+  //Maneja la fecha donde han hecho click
   handleDateClick(arg: any) {
     this.handleDateSelect(arg)
   }
 
   handleDateSelect(selectInfo:any) {
+      //Formateo las fechas para enviarselas como las espera la API
       const dateStamp= moment().format('YYYY-MM-DD')
       const format=selectInfo.dateStr
       let soloFecha=format.split('T')
@@ -102,6 +112,7 @@ export class ItemComponent implements OnInit {
       this.myForm.controls['idHorary'].setValue(fechaReserva[0]);
       this.myForm.controls['dateStamp'].setValue(dateStamp);
       this.myForm.controls['reserveDate'].setValue(soloFecha[0]);
+      //Muestra un alert para que se confirme si se va a reservar
       Swal.fire({
         title: 'Are you sure?',
         text: `You will reserve this court on
@@ -112,6 +123,7 @@ export class ItemComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Make reserve!'
       }).then((result) => {
+        //Si confirma muestra un alert success y hace la reserva
         if (result.isConfirmed) {
           Swal.fire(
             'Reserve complete!',
@@ -154,6 +166,7 @@ export class ItemComponent implements OnInit {
   return ocupadas
 }
 
+  //Va a enviar los datos que se necesitan para hacer la reserva
   addReserve(){
     const username=this.user.username
     const idCourt=this.court.idCourt
@@ -162,7 +175,6 @@ export class ItemComponent implements OnInit {
     const reserveDate=this.myForm.controls['reserveDate'].value
     this.courtSvc.makeReservation(username,idCourt,idHorary,dateStamp,reserveDate).subscribe({
       next:(resp)=>{
-        console.log(resp)
       },
       error:(err)=>{
         console.log(err);

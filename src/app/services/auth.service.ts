@@ -4,6 +4,8 @@ import { BehaviorSubject, catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
 import { User } from '../interfaces/User.interface';
+import { UserService } from './user.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -15,7 +17,17 @@ export class AuthService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient, private cookieSvc: CookieService) {}
+  constructor(private http: HttpClient, private cookieSvc: CookieService,private userSvc:UserService,private router:Router) {
+    //Para pintar la barra de navegacion segun si esta registrado o no
+    this.isAuthenticated().subscribe({
+      next:()=>{
+        this.loggedIn.next(true);
+      },
+      error:()=>{
+        this.loggedIn.next(false)
+      }
+    })
+  }
 
   private loggedIn = new BehaviorSubject<boolean> (false);
 
@@ -23,6 +35,9 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
+
+  //Recibe nombre y password y envia a la API, en caso de hacer login guarda en las
+  //cookies el rol, el nombre y el token
   hacerLogin(username: string, password: string) {
     return this.http.post<InterfaceLogin>(`${this.url}/signin`,{username,password },this.httpOptions)
       .pipe(
@@ -30,6 +45,11 @@ export class AuthService {
         switchMap((token) => {
           //Guarda en las cookies el token que recoge de la peticion de antes
           this.cookieSvc.set('token', token.access_token);
+          this.userSvc.getUser(username).subscribe({
+            next:(resp)=>{
+              this.cookieSvc.set('role', resp.role)
+            }
+          })
           this.loggedIn.next(true);
           //Devuelve observable de true
           return of(true);
@@ -38,6 +58,7 @@ export class AuthService {
           //Si hay algun error borra de las cookies
           this.cookieSvc.delete('token');
           this.cookieSvc.delete('username');
+          this.cookieSvc.delete('role')
           return of(false);
         })
       );
@@ -58,10 +79,12 @@ export class AuthService {
     );
   }
 
+  //Borra de las cookies lps datos del usuario
   logout(){
     this.loggedIn.next(false);
     this.cookieSvc.delete('token')
     this.cookieSvc.delete('username')
+    this.cookieSvc.delete('role')
 
   }
 

@@ -11,6 +11,7 @@ import {TableModule} from 'primeng/table';
 })
 export class ListComponent implements OnInit {
 
+  //Recibe la lista de pistas
   @Input() courtList:Court[]=[]
   constructor(private courtService: CourtService) {}
 
