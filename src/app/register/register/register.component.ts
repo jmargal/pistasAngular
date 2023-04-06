@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -82,6 +83,11 @@ export class RegisterComponent implements OnInit {
       },
       error:(err)=>{
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'User name already in use',
+        })
       }
     })
   }

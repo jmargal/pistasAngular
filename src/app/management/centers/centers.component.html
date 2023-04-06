@@ -1,19 +1,29 @@
 <div class="container">
   <div class="row">
-    <p-table id="tabla" [value]="centerList" [rows]="5" [paginator]="true" urrentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-      <ng-template pTemplate="header"class="header" >
+    <div class="col">
+      <button type="button" class="btn btn-success" [routerLink]="['/manage/newCenter']">New center</button>
+    </div>
+  </div>
+  <div class="row">
+    <p-table id="tabla" [value]="centerList" [rows]="5" [paginator]="true"
+      urrentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header" class="header">
         <tr class="cabeceras">
-          <th pSortableColumn="idCentre">ID<p-sortIcon field="idCentre"></p-sortIcon></th>
-          <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
-          <th pSortableColumn="address">Address<p-sortIcon field="address"></p-sortIcon></th>
+          <th pSortableColumn="idCentre">ID<p-sortIcon field="idCentre"></p-sortIcon>
+          </th>
+          <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="address">Address<p-sortIcon field="address"></p-sortIcon>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-center>
-        <tr >
+        <tr>
           <td>{{center.idCentre}}</td>
           <td>{{center.name}}</td>
           <td>{{center.address}}</td>
           <td><button type="button" class="btn btn-danger" (click)="deleteCenter(center.idCentre)">Delete</button></td>
+          <td><button type="button" class="btn btn-warning" routerLink="/manage/editCenter/{{center.idCentre}}">Update</button></td>
         </tr>
       </ng-template>
 

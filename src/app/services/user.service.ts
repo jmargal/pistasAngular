@@ -8,7 +8,9 @@ import { User } from '../interfaces/User.interface';
   providedIn: 'root'
 })
 export class UserService {
-  private url: string = 'https://pistasapi-production.up.railway.app';
+  // private url: string = 'https://pistasapi-production.up.railway.app';
+  private url:string='http://localhost:9100'
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };

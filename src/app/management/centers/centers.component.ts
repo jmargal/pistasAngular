@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CentresService } from '../../services/centres.service';
 import { Center } from '../../interfaces/Center.interface';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-centers',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class CentersComponent implements OnInit{
 
-  constructor(private centerSvc:CentresService){}
+  constructor(private centerSvc:CentresService,private router:Router){}
 
   centerList!:Center[];
   //Al iniciarse carga la lista de centros
@@ -36,6 +37,7 @@ export class CentersComponent implements OnInit{
           title: 'Success!',
           text: 'Center deleted successfully',
         })
+      this.router.navigate(['/centers'])
       },
       error:(err)=>{
         console.log(err);
@@ -47,4 +49,10 @@ export class CentersComponent implements OnInit{
       }
     })
   }
+
+  updateCenter(id:number){
+    this.router.navigate(['/manage/editCenter'])
+  }
+
+
 }

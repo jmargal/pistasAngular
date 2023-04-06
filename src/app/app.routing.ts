@@ -10,6 +10,8 @@ import { RegisterComponent } from './register/register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CentersComponent } from './management/centers/centers.component';
 import { RolGuard } from './guards/rol.guard';
+import { NewCenterComponent } from './management/new-center/new-center.component';
+import { EditCenterComponent } from './management/edit-center/edit-center.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,16 @@ const routes: Routes = [
     path:'manage/centers',
     canActivate:[RolGuard],
     component:CentersComponent
+  },
+  {
+    path:'manage/newCenter',
+    canActivate:[RolGuard],
+    component:NewCenterComponent
+  },
+  {
+    path:'manage/editCenter/:id',
+    canActivate:[RolGuard],
+    component:EditCenterComponent
   },
   {
     path: '',

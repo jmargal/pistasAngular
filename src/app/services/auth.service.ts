@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private url: string = 'https://pistasapi-production.up.railway.app';
+  // private url: string = 'https://pistasapi-production.up.railway.app';
+  private url:string='http://localhost:9100'
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
