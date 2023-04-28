@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CentresService } from '../../services/centres.service';
 import { Center } from '../../interfaces/Center.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-center',
@@ -13,7 +14,7 @@ export class NewCenterComponent {
   constructor(
     private formbuilder: FormBuilder,
     private centerSvc: CentresService,
-    private router: Router,
+    private router: Router
   ) {}
 
   myForm: FormGroup = this.formbuilder.group({
@@ -35,30 +36,37 @@ export class NewCenterComponent {
     );
   }
 
-  // centerExists(){
-  //   let name = this.myForm.controls['name'].value;
-  //   this.centerSvc.getCenterByName(name).subscribe({
-  //     next: (resp) => {
-  //       console.log(resp);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-
-  // }
+  centerExists() {
+    let name = this.myForm.controls['name'].value;
+    this.centerSvc.getCenterByName(name).subscribe({
+      next: (resp) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'A center named ' + name + ' already exists',
+        });
+      },
+      error: (err) => {
+        this.addCenter();
+      },
+    });
+  }
 
   addCenter() {
     let name = this.myForm.controls['name'].value;
     let address = this.myForm.controls['address'].value;
     this.centerSvc.addCenter(name, address).subscribe({
-      next:(resp)=>{
-        alert("Center added successfully")
-        this.router.navigate(['/manage/centers'])
+      next: (resp) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User updated',
+        });
+        this.router.navigate(['/manage/centers']);
       },
-      error:(err)=>{
-        console.log(err)
-      }
-    })
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

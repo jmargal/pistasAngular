@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of, switchMap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
-import { User } from '../interfaces/User.interface';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
 
@@ -20,14 +19,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookieSvc: CookieService,private userSvc:UserService,private router:Router) {
     //Para pintar la barra de navegacion segun si esta registrado o no
-    this.isAuthenticated().subscribe({
-      next:()=>{
-        this.loggedIn.next(true);
-      },
-      error:()=>{
-        this.loggedIn.next(false)
-      }
-    })
+    if(this.cookieSvc.get('token') == ''){
+      this.loggedIn.next(false);
+    }else{
+      this.loggedIn.next(true);
+    }
   }
 
   private loggedIn = new BehaviorSubject<boolean> (false);
@@ -82,10 +78,10 @@ export class AuthService {
 
   //Borra de las cookies lps datos del usuario
   logout(){
-    this.loggedIn.next(false);
     this.cookieSvc.delete('token')
     this.cookieSvc.delete('username')
     this.cookieSvc.delete('role')
+    this.loggedIn.next(false);
 
   }
 

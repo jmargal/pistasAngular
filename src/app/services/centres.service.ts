@@ -22,6 +22,7 @@ export class CentresService {
     return this.http.get<Center[]>(`${this.url}/center/list`);
   }
 
+  //Obtiene el centro por el id
   getCenter(id:number):Observable<Center> {
     return this.http.get<Center>(`${this.url}/center/${id}`)
   }
@@ -39,6 +40,11 @@ export class CentresService {
   //Añade un nuevo centro con los datos que se le pasan
   addCenter(name:string,address:string):Observable<Center>{
     return this.http.post<Center>(`${this.url}/addCenter`,{name,address})
+  }
+
+  //Actualiza el centro del que recibe el id con los datos que se le pasan
+  updateCenter(id:number,name:string,address:string):Observable<Center>{
+    return this.http.put<Center>(`${this.url}/editCenter/${id}`,{name,address})
   }
 
 

@@ -3,7 +3,7 @@
     <div class="d-inline col-sm-4">
       <div class="col-sm-12">
         <h1>Add a center</h1>
-        <form [formGroup]="myForm" (ngSubmit)="addCenter()">
+        <form [formGroup]="myForm" (ngSubmit)="centerExists()">
           <div class="form-group">
             <label for="uname">Center name</label>
             <input type="text" class="form-control" id="centerName" formControlName="name">
@@ -25,7 +25,7 @@
     </div>
     <div id="foto" class="d-inline col-sm-8">
       <img class="d-block w-100 img-fluid rounded"
-        src="https://www.one15marina.com/puteriharbour/wp-content/uploads/2020/07/estuari-sports-centre-aerial-view-e1604887139211.jpg">
+        src="../../../assets/Plano-centro-deportivo-La-Luna.jpg">
     </div>
   </div>
 </div>
