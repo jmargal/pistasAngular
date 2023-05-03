@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-success" [routerLink]="['/manage/newCourt']">New Court</button>
+    </div>
+  </div>
+  <div class="row">
+    <p-table id="tabla" [value]="courtList" [rows]="5" [paginator]="true"
+      urrentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header" class="header">
+        <tr class="cabeceras">
+          <th pSortableColumn="idCourt">ID<p-sortIcon field="idCourt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="sport">Sport<p-sortIcon field="sport"></p-sortIcon>
+          </th>
+          <th pSortableColumn="idCentre">Center<p-sortIcon field="idCentre"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-court>
+        <tr>
+          <td>{{court.idCourt}}</td>
+          <td>{{court.sport}}</td>
+          <td>{{court.idCentre}}</td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteCourt(court.idCourt)">Delete</button></td>
+          <!-- <td><button type="button" class="btn btn-warning" routerLink="/manage/editCenter/{{center.idCentre}}">Update</button></td> -->
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+</div>

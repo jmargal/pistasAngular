@@ -12,6 +12,9 @@ import { CentersComponent } from './management/centers/centers.component';
 import { RolGuard } from './guards/rol.guard';
 import { NewCenterComponent } from './management/new-center/new-center.component';
 import { EditCenterComponent } from './management/edit-center/edit-center.component';
+import { ListadoComponent } from './gestion-pistas/listado/listado.component';
+import { NewCourtComponent } from './gestion-pistas/new-court/new-court.component';
+import { EditCourtComponent } from './gestion-pistas/edit-court/edit-court.component';
 
 
 const routes: Routes = [
@@ -47,6 +50,21 @@ const routes: Routes = [
     path:'manage/editCenter/:id',
     canActivate:[RolGuard],
     component:EditCenterComponent
+  },
+  {
+    path:'manage/courts',
+    canActivate:[RolGuard],
+    component:ListadoComponent
+  },
+  {
+    path:'manage/newCourt',
+    canActivate:[RolGuard],
+    component:NewCourtComponent
+  },
+  {
+    path:'manage/editCourt/:id',
+    canActivate:[RolGuard],
+    component:EditCourtComponent
   },
   {
     path: '',

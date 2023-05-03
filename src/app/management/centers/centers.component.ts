@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-centers',
-  templateUrl: './centers.component.html',
-  styleUrls:['./centers.component.css']
+  templateUrl: './centers.component.html'
 })
 export class CentersComponent implements OnInit{
 
@@ -16,6 +15,10 @@ export class CentersComponent implements OnInit{
   centerList!:Center[];
   //Al iniciarse carga la lista de centros
   ngOnInit(): void {
+    this.loadData()
+  }
+
+  loadData(){
     this.centerSvc.getCentres().subscribe({
       next:(resp)=>{
         this.centerList=resp
@@ -30,24 +33,31 @@ export class CentersComponent implements OnInit{
   //Si se ha borrado muestra un alert de success
   //Si no devuelve uno de error
   deleteCenter(id:number){
-    this.centerSvc.deleteCenter(id).subscribe({
-      next:(resp)=>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Center deleted successfully',
-        })
-      this.router.navigate(['/centers'])
-      },
-      error:(err)=>{
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Ooops...',
-          text: 'Something went wrong',
-        })
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.centerSvc.deleteCenter(id).subscribe({
+          next: (value) => {
+            this.loadData();
+          },
+          error(err) {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Ooops...',
+              text: 'Something went wrong',
+            });
+          },
+        });
       }
-    })
+    });
   }
 
   updateCenter(id:number){

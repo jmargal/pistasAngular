@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Court } from "src/app/interfaces/Court.interface";
 import { Reservation } from "../interfaces/Reservation.interface";
+import { addCourt } from '../interfaces/Court.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,19 @@ export class CourtService {
   //Hace la reserva con los datos que se le pasan
   makeReservation(username:string,idCourt:number,idHorary:string,dateStamp:string,reserveDate:string):Observable<any>{
     return this.http.post<any>(`${this.url}/reservation`,{username,idCourt,idHorary,dateStamp,reserveDate})
+  }
+
+  addCourt(court:addCourt,img:File,center:number){
+    let data: FormData = new FormData();
+    //La api espera que le pasen un form data con las dos propiedades que se le van a añadir a continuación
+    //Una vez hechas las conversiones, se pasa la petición
+    data.append('file', img,img.name);
+    data.append('court',new Blob([JSON.stringify(court)], {type: 'application/json'}))
+    return this.http.post<any>(`${this.url}/addCourt/${center}`,data)
+  }
+
+  deleteCourt(id:number){
+    return this.http.delete<any>(`${this.url}/deleteCourt/${id}`);
   }
 
 

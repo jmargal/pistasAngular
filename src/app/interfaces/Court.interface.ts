@@ -4,3 +4,8 @@ export interface Court{
   img: string;
   price: number;
 }
+
+export interface addCourt{
+  sport:string,
+  price:number;
+}

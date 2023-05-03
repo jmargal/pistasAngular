@@ -19,6 +19,7 @@ import { UserModule } from './user/user.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterModule } from './register/register.module';
 import { ManagementModule } from './management/management.module';
+import { GestionPistasModule } from './gestion-pistas/gestion-pistas.module';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ManagementModule } from './management/management.module';
     FullCalendarModule,
     ReactiveFormsModule,
     RegisterModule,
-    ManagementModule
+    ManagementModule,
+    GestionPistasModule
   ],
   providers: [CentresService,CourtService,UserService,AuthService,{
     provide: HTTP_INTERCEPTORS,
