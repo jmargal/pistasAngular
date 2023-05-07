@@ -15,15 +15,15 @@
             <label for="price">Price</label>
             <input type="text" class="form-control" formControlName="price">
             <span class="form-text text-danger" *ngIf="isValidPrice()">
-              Min price 1
+              Min price 3€
             </span>
           </div>
           <div class="form-group">
             <label for="img">Image</label>
             <input type="file" class="form-control" formControlName="img" (change)="onFileSelected($event)" required #fileInput>
-            <span class="form-text text-danger" *ngIf="isValidExtension()">
+            <!-- <span class="form-text text-danger" *ngIf="isValidExtension()">
               Is not a valid extension
-            </span>
+            </span> -->
           </div>
           <div class="form-group">
             <label for="center">Center</label>

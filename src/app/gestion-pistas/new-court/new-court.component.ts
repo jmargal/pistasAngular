@@ -36,7 +36,7 @@ export class NewCourtComponent implements OnInit {
 
   myForm: FormGroup = this.formbuilder.group({
     sport: ['', [Validators.required, Validators.minLength(3)]],
-    price: ['', [Validators.required, Validators.min(1)]],
+    price: ['', [Validators.required, Validators.min(3)]],
     img: [null, [Validators.required]],
     center: ['', [Validators.required]],
   });

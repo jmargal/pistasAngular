@@ -1,1 +1,37 @@
-<p>edit-court works!</p>
+<div *ngIf="court" class="container">
+  <div class="row col-sm-12">
+    <div class="d-inline col-sm-4">
+      <div class="col-sm-12">
+        <h1>Edit this court</h1>
+        <form [formGroup]="myForm" (ngSubmit)="update()">
+          <div class="form-group">
+            <label for="sport">Sport</label>
+            <input type="text" class="form-control" [ngModel]="court.sport" formControlName="sport">
+            <span class="form-text text-danger" *ngIf="isValidSport()">
+              Min length 3
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" [ngModel]="court.price" formControlName="price">
+            <span class="form-text text-danger" *ngIf="isValidPrice()">
+              Min price 3€
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="img">Image</label>
+            <input type="file" class="form-control" formControlName="img" (change)="onFileSelected($event)" #fileInput>
+          </div>
+          <span class="form-text text-secondary">Not required if you want to preserve
+           the actual image
+          </span>
+          <br><br>
+          <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="foto" class="d-inline col-sm-8">
+      <img class="d-block w-100 img-fluid rounded" src="{{court.img}}">
+    </div>
+  </div>
+</div>
