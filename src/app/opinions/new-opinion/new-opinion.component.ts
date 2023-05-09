@@ -46,7 +46,7 @@ export class NewOpinionComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Added!',
-          text: 'Court added successfully',
+          text: 'Opinion added successfully',
         });
         this.router.navigate([`court/${idCourt}/opinions`]);
       },

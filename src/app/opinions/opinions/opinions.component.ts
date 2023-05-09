@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Opinion } from 'src/app/interfaces/Opinion.interface';
 import { OpinionsService } from 'src/app/services/opinions.service';
 import Swal from 'sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-opinions',
@@ -15,7 +16,8 @@ export class OpinionsComponent implements OnInit {
     private router: Router,
     private actualRoute: ActivatedRoute,
     private opinionSvc: OpinionsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private cookieSvc:CookieService
   ) {}
 
   id!: number;
@@ -23,11 +25,16 @@ export class OpinionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.actualRoute.snapshot.params['id'];
+    this.loadData();
+  }
+
+  loadData(){
     this.opinionSvc.getOpinions(this.id).subscribe({
       next:(value) =>{
         this.opinionList=value;
       },
       error(err) {
+        console.log(err);
         Swal.fire({
           icon: 'error',
           title: 'Ooops...',
@@ -44,6 +51,26 @@ export class OpinionsComponent implements OnInit {
   convertFecha(dateStamp:string){
     const date = new Date(dateStamp);
     return this.datePipe.transform(date, 'HH:mm:ss dd/MM/yyyy');
+  }
+
+  checkUser(username: string): boolean {
+    return (this.cookieSvc.get('username') == username);
+  }
+
+  deleteOpinion(idCourt:number){
+    this.opinionSvc.deleteOpinion(idCourt).subscribe({
+      next:(value)=> {
+        Swal.fire({
+          icon: 'success',
+          title: 'Deleted!',
+          text: 'Opinion deleted successfully',
+        });
+        this.loadData();
+      },
+      error(err) {
+        console.log(err);
+      },
+    })
   }
 
 }

@@ -21,7 +21,15 @@ export class OpinionsService {
     return this.http.get<any>(`${this.url}/${id}/court`)
   }
 
+  getAnOpinion(id:number){
+    return this.http.get<any>(`${this.url}/${id}`)
+  }
+
   addOpinion(opinion:addOpinion){
     return this.http.post<addOpinion>(`${this.url}`,opinion,this.httpOptions)
+  }
+
+  deleteOpinion(id:number){
+    return this.http.delete(`${this.url}/${id}`)
   }
 }

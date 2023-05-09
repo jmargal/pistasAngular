@@ -1,4 +1,5 @@
 export interface Opinion {
+  idOpinion: number;
   user: string;
   comment: string;
   score: number;
