@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterModule } from './register/register.module';
 import { ManagementModule } from './management/management.module';
 import { GestionPistasModule } from './gestion-pistas/gestion-pistas.module';
+import { OpinionsModule } from './opinions/opinions.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { GestionPistasModule } from './gestion-pistas/gestion-pistas.module';
     ReactiveFormsModule,
     RegisterModule,
     ManagementModule,
-    GestionPistasModule
+    GestionPistasModule,
+    OpinionsModule
   ],
   providers: [CentresService,CourtService,UserService,AuthService,{
     provide: HTTP_INTERCEPTORS,

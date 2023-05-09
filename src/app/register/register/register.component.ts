@@ -78,6 +78,11 @@ export class RegisterComponent implements OnInit {
           },
           error:(err)=>{
             console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Ooops...',
+              text: 'It seems there was an error',
+            })
           }
         })
       },

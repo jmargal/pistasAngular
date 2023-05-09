@@ -83,6 +83,11 @@ export class ItemComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       },
     });
     //Al iniciarse obtiene el usuario logueado
@@ -92,6 +97,11 @@ export class ItemComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       }
     })
     //Pinta con las reservas ya hechas
@@ -144,7 +154,11 @@ export class ItemComponent implements OnInit {
         this.calendarOptions.events=this.chargeEvents()
       },
       error:(err)=>{
-        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       }
     })
 
@@ -177,7 +191,11 @@ export class ItemComponent implements OnInit {
       next:(resp)=>{
       },
       error:(err)=>{
-        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       }
     })
   }

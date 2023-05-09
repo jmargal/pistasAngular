@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <h2>Rate this court</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+    <form [formGroup]="myForm" (ngSubmit)="addOpinion()">
+      <div class="form-group">
+        <label for="idCourt">Court</label>
+        <input type="text" class="form-control"  readonly [value]="idCourt">
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" formControlName="comment"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="score">Score:</label>
+        <select class="form-control" formControlName="score">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+    </form>
+  </div>
+    <div class="col-sm-6">
+      <img class="d-block w-100 img-fluid rounded" src="../../../assets/Plano-centro-deportivo-La-Luna.jpg">
+    </div>
+  </div>
+</div>

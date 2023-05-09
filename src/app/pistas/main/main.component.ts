@@ -3,6 +3,7 @@ import { Court } from 'src/app/interfaces/Court.interface';
 import { Center } from '../../interfaces/Center.interface';
 import { CentresService } from '../../services/centres.service';
 import { CourtService } from '../../services/court.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-main',
@@ -25,6 +26,11 @@ export class MainComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       },
     });
     this.cargarPistas(0)
@@ -40,6 +46,11 @@ export class MainComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'It seems there was an error',
+          })
         },
       });
     } else {
@@ -49,6 +60,11 @@ export class MainComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'It seems there was an error',
+          })
         },
       });
     }

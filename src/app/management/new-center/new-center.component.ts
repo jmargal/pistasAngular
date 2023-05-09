@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { CentresService } from '../../services/centres.service';
-import { Center } from '../../interfaces/Center.interface';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -66,6 +64,11 @@ export class NewCenterComponent {
       },
       error: (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       },
     });
   }
