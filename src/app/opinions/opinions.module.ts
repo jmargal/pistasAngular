@@ -5,13 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { NewOpinionComponent } from './new-opinion/new-opinion.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditOpinionComponent } from './edit-opinion/edit-opinion.component';
 
 
 
 @NgModule({
   declarations: [
     OpinionsComponent,
-    NewOpinionComponent
+    NewOpinionComponent,
+    EditOpinionComponent
   ],
   imports: [
     CommonModule,

@@ -31,15 +31,30 @@ export class NewOpinionComponent implements OnInit {
     this.idCourt = this.actualRoute.snapshot.params['id'];
   }
 
+  convertHora(){
+    const opciones = { timeZone: 'Europe/Madrid', hour12: false };
+    const now = new Date().toLocaleString('es-Es',opciones)
+    const [fechaStr, horaStr] = now.split(', ');
+    const [diaStr, mesStr, anioStr] = fechaStr.split('/');
+    const [hora, minutos, segundos] = horaStr.split(':').map(Number);
+    const mes = Number(mesStr) - 1;
+    const fechaObj = new Date(Number(anioStr), mes, Number(diaStr), hora, minutos, segundos);
+    // Formateo la fecha y hora como una cadena en el formato deseado
+    const anio = fechaObj.getFullYear();
+    const mesFormateado = (fechaObj.getMonth() + 1).toString().padStart(2, '0');
+    const diaFormateado = fechaObj.getDate().toString().padStart(2, '0');
+    const horaFormateada = fechaObj.getHours().toString().padStart(2, '0');
+    const minutosFormateados = fechaObj.getMinutes().toString().padStart(2, '0');
+    const segundosFormateados = fechaObj.getSeconds().toString().padStart(2, '0');
+    return `${anio}-${mesFormateado}-${diaFormateado}T${horaFormateada}:${minutosFormateados}:${segundosFormateados}`;
+  }
+
   addOpinion(){
     const idCourt=this.idCourt;
     const comment=this.myForm?.controls['comment'].value;
     const score=this.myForm?.controls['score'].value;
     const user=this.cookieSvc.get("username");
-    const now = new Date(Date.now());
-    let fechaPartir = now.toISOString();
-    const array=fechaPartir.split('.')
-    const datestamp=array[0]
+    const datestamp=this.convertHora()
     const opinion:addOpinion={user,idCourt,comment,score,datestamp}
     this.opinionSvc.addOpinion(opinion).subscribe({
       next:(value)=> {

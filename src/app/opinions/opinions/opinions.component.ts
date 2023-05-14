@@ -9,6 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-opinions',
   templateUrl: './opinions.component.html',
+  styleUrls:['./opinions.component.css'],
   providers:[DatePipe]
 })
 export class OpinionsComponent implements OnInit {
@@ -71,6 +72,10 @@ export class OpinionsComponent implements OnInit {
         console.log(err);
       },
     })
+  }
+
+  updateOpinion(id:number){
+    this.router.navigate([`court/${id}/editOpinion`])
   }
 
 }

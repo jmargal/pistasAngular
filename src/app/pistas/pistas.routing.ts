@@ -5,6 +5,7 @@ import { MainComponent } from './main/main.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { OpinionsComponent } from '../opinions/opinions/opinions.component';
 import { NewOpinionComponent } from '../opinions/new-opinion/new-opinion.component';
+import { EditOpinionComponent } from '../opinions/edit-opinion/edit-opinion.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'court/:id/addOpinion',canActivate:[AuthGuard],component:NewOpinionComponent
+  },
+  {
+    path: 'court/:id/editOpinion',canActivate:[AuthGuard],component:EditOpinionComponent
   }
 ];
 
