@@ -1,5 +1,43 @@
 <div class="container" *ngIf="loadOpinion">
-  <p>Entra</p>
+  <div class="row col-sm-12">
+    <div class="col-sm-4">
+      <img src="../../../assets/3400ef84aa3a273311454f13eb76fdaa-icono-de-engranajes-de-marketing.png" width="350px"
+        height="500px">
+    </div>
+    <div class="d-inline col-sm-4">
+      <div class="col-sm-12">
+        <h1>Edit my opinion of court {{opinion.idCourt}}</h1>
+        <form [formGroup]="myForm" (ngSubmit)="update()">
+          <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea type="text" class="form-control" name="comment"  [ngModel]="opinion.comment" formControlName="comment" required></textarea>
+            <span class="form-text text-danger" *ngIf="isValidComment()">
+              The comment length must be between 2 and 400 characters
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="score">Score:</label>
+            <select class="form-control" name="score" required formControlName="score" [ngModel]="opinion.score" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <span class="form-text text-danger" *ngIf="isValidScore()">
+              Score is required
+            </span>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+        </form>
+        <br>
+        <a class="btn btn-primary" [routerLink]="'/court/'+opinion.idCourt+'/opinions'">Go back</a>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <img src="../../../assets/nuevoengranaje.png" width="350px" height="500px">
+    </div>
+  </div>
 </div>
-
 

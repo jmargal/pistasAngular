@@ -78,9 +78,7 @@ export class AuthService {
 
   //Borra de las cookies lps datos del usuario
   logout(){
-    this.cookieSvc.delete('token')
-    this.cookieSvc.delete('username')
-    this.cookieSvc.delete('role')
+    this.cookieSvc.deleteAll()
     this.loggedIn.next(false);
 
   }

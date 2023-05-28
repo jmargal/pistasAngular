@@ -21,6 +21,7 @@ import { RegisterModule } from './register/register.module';
 import { ManagementModule } from './management/management.module';
 import { GestionPistasModule } from './gestion-pistas/gestion-pistas.module';
 import { OpinionsModule } from './opinions/opinions.module';
+import { BooksModule } from './books/books.module';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { OpinionsModule } from './opinions/opinions.module';
     RegisterModule,
     ManagementModule,
     GestionPistasModule,
-    OpinionsModule
+    OpinionsModule,
+    BooksModule
   ],
   providers: [CentresService,CourtService,UserService,AuthService,{
     provide: HTTP_INTERCEPTORS,

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Opinion } from 'src/app/interfaces/Opinion.interface';
 import { OpinionsService } from 'src/app/services/opinions.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { addOpinion } from '../../interfaces/Opinion.interface';
@@ -23,12 +22,26 @@ export class NewOpinionComponent implements OnInit {
   idCourt!: number;
 
   myForm: FormGroup = this.formbuilder.group({
-    comment: ['', [Validators.required, Validators.minLength(2)]],
+    comment: ['', [Validators.required, Validators.minLength(2),Validators.maxLength(400)]],
     score: ['', [Validators.required, Validators.min(1),Validators.max(5)]],
   });
 
   ngOnInit(): void {
     this.idCourt = this.actualRoute.snapshot.params['id'];
+  }
+
+  isValidComment() {
+    return (
+      this.myForm?.controls['comment'].errors &&
+      this.myForm?.controls['comment'].touched
+    );
+  }
+
+  isValidScore() {
+    return (
+      this.myForm?.controls['score'].errors &&
+      this.myForm?.controls['score'].touched
+    );
   }
 
   convertHora(){

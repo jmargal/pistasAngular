@@ -11,17 +11,23 @@
       </div>
       <div class="form-group">
         <label for="comment">Comment:</label>
-        <textarea class="form-control" formControlName="comment"></textarea>
+        <textarea class="form-control" required formControlName="comment" ></textarea>
+        <span class="form-text text-danger" *ngIf="isValidComment()">
+          The length of a comment must be between 2 and 400 characters
+        </span>
       </div>
       <div class="form-group">
         <label for="score">Score:</label>
-        <select class="form-control" formControlName="score">
+        <select class="form-control" required formControlName="score" >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
+        <span class="form-text text-danger" *ngIf="isValidScore()">
+          Score is required
+        </span>
       </div>
       <br>
       <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>

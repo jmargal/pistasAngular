@@ -32,4 +32,8 @@ export class OpinionsService {
   deleteOpinion(id:number){
     return this.http.delete(`${this.url}/${id}`)
   }
+
+  updateOpinion(id:number,opinion:addOpinion){
+    return this.http.put(`${this.url}/${id}`,opinion)
+  }
 }
