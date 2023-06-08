@@ -6,6 +6,8 @@ import { CourtService } from 'src/app/services/court.service';
 import { Court } from '../../interfaces/Court.interface';
 import { Observable, catchError, map, of } from 'rxjs';
 import Swal from 'sweetalert2';
+import { CentresService } from 'src/app/services/centres.service';
+import { Center } from 'src/app/interfaces/Center.interface';
 
 @Component({
   selector: 'app-my-books',
@@ -15,17 +17,23 @@ export class MyBooksComponent implements OnInit {
   constructor(
     private bookSvc: BooksService,
     private cookieSvc: CookieService,
-    private courtSvc: CourtService
+    private courtSvc: CourtService,
+    private centerSvc: CentresService
+
   ) {}
 
   user!: string;
   bookList!: Reservation[];
   courtList: Court[] = [];
+  centerList:Center[] = [];
+  court!:Court;
+
 
   ngOnInit(): void {
     this.user = this.cookieSvc.get('username');
     this.loadData();
     this.loadCourts();
+
   }
 
   loadData() {
@@ -34,6 +42,11 @@ export class MyBooksComponent implements OnInit {
         this.bookList = resp;
       },
     });
+    this.centerSvc.getCentres().subscribe({
+      next: (resp) => {
+        this.centerList=resp
+      }
+    })
   }
 
   loadCourts() {
@@ -43,6 +56,18 @@ export class MyBooksComponent implements OnInit {
       }
     });
   }
+
+  getCenterName(idCourt: number): string {
+    const court = this.courtList.find((court) => court.idCourt === idCourt);
+    if (court) {
+      const center = this.centerList.find((center) => center.idCentre === court.idCentre);
+      if (center) {
+        return center.name;
+      }
+    }
+    return '';
+  }
+
 
   getCourtSport(courtId: number): string {
     //Encuentra la pista en el array que coincide con el id

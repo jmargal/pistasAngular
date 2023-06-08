@@ -1,9 +1,6 @@
   <div class="card-deck">
     <div class="card carta" *ngFor="let court of courtList">
       <img class="card-img-top" src="{{court.img}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Id: {{court.idCourt}}</h5>
-      </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Sport: {{court.sport}}</li>
         <li class="list-group-item">Price of court: {{court.price}}</li>

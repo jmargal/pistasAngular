@@ -111,7 +111,7 @@ export class ItemComponent implements OnInit {
 
   handleDateSelect(selectInfo:any) {
       //Formateo las fechas para enviarselas como las espera la API
-      const dateStamp= moment().format('YYYY-MM-DD')
+      const dateStamp = moment().format('YYYY-MM-DDTHH:mm:ss');
       const format=selectInfo.dateStr
       let soloFecha=format.split('T')
       let fechaReserva=format.split('+')
