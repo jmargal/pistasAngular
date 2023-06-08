@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Center } from 'src/app/interfaces/Center.interface';
 import { Court } from 'src/app/interfaces/Court.interface';
+import { CentresService } from 'src/app/services/centres.service';
 import { CourtService } from 'src/app/services/court.service';
 import Swal from 'sweetalert2';
 
@@ -15,16 +17,19 @@ export class EditCourtComponent implements OnInit {
     private courtSvc: CourtService,
     private actualRoute: ActivatedRoute,
     private formbuilder: FormBuilder,
+    private centerSvc: CentresService
   ) {}
 
   court!: Court;
   id!: number;
+  centerList!: Center[];
   @ViewChild('fileInput') fileInput!: ElementRef;
 
 
   myForm: FormGroup = this.formbuilder.group({
     sport:['',[Validators.required,Validators.minLength(3)]],
     price:['',[Validators.required,Validators.min(3)]],
+    center: [null,[Validators.required]],
     img: [null],
   });
 
@@ -42,6 +47,19 @@ export class EditCourtComponent implements OnInit {
           text: 'It seems there was an error',
         })
       }
+    });
+    this.centerSvc.getCentres().subscribe({
+      next: (resp) => {
+        this.centerList = resp;
+      },
+      error(err) {
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
+      },
     });
   }
 
@@ -78,7 +96,8 @@ export class EditCourtComponent implements OnInit {
     let sport=this.myForm?.controls['sport'].value
     let price=this.myForm?.controls['price'].value
     let img = this.myForm.get('img');
-    this.courtSvc.updateCourt(this.id,img?.value,sport,price).subscribe({
+    let idCenter=this.myForm?.controls['center'].value;
+    this.courtSvc.updateCourt(this.id,img?.value,sport,price,idCenter).subscribe({
       next:(value)=> {
         Swal.fire({
           icon: 'success',

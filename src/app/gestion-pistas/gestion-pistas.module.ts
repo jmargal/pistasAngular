@@ -24,6 +24,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports:[ListadoComponent]
+  exports:[
+    ListadoComponent,
+    NewCourtComponent,
+    EditCourtComponent
+  ]
 })
 export class GestionPistasModule { }

@@ -19,6 +19,12 @@
             </span>
           </div>
           <div class="form-group">
+            <label for="center">Center</label>
+            <select class="form-select" [ngModel]="court.idCentre" formControlName="center" required>
+              <option *ngFor="let center of centerList" value={{center.idCentre}}>{{center.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="img">Image</label>
             <input type="file" class="form-control" formControlName="img" (change)="onFileSelected($event)" #fileInput>
           </div>

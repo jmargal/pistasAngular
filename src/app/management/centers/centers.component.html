@@ -22,7 +22,7 @@
           <td>{{center.idCentre}}</td>
           <td>{{center.name}}</td>
           <td>{{center.address}}</td>
-          <td><button type="button" class="btn btn-danger" (click)="deleteCenter(center.idCentre)">Delete</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteCenter(center.idCentre,center.name)">Delete</button></td>
           <td><button type="button" class="btn btn-warning" routerLink="/manage/editCenter/{{center.idCentre}}">Update</button></td>
         </tr>
       </ng-template>

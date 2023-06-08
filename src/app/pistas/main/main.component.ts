@@ -30,16 +30,16 @@ export class MainComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
+        });
       },
     });
-    this.cargarPistas(0)
+    this.cargarPistas(0);
   }
 
   //Hace la peticion con las pistas del centro que le pasan por id
   // si el id es 0 es que se acaba de cargar el componente y muestra todo
   cargarPistas(idCentro: number) {
-    if (idCentro!=0) {
+    if (idCentro != 0) {
       this.courtService.getCourtsByCenter(idCentro).subscribe({
         next: (resp) => {
           this.courtList = resp;
@@ -50,7 +50,7 @@ export class MainComponent implements OnInit {
             icon: 'error',
             title: 'Ooops...',
             text: 'It seems there was an error',
-          })
+          });
         },
       });
     } else {
@@ -64,9 +64,30 @@ export class MainComponent implements OnInit {
             icon: 'error',
             title: 'Ooops...',
             text: 'It seems there was an error',
-          })
+          });
         },
       });
+    }
+  }
+
+  searchCenter(name: String) {
+    if (name !== '') {
+      this.centerSvc.getCenterByName(name).subscribe({
+        next: (resp) => {
+          this.centerList = resp;
+          this.cargarPistas(this.centerList[0].idCentre);
+        },
+        error(err) {
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text: 'There is not a center with name ' + name,
+          });
+        },
+      });
+    } else {
+     this.ngOnInit()
     }
   }
 }

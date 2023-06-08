@@ -37,10 +37,10 @@ export class CentersComponent implements OnInit{
   //Recibe el id del centro a borrar
   //Si se ha borrado muestra un alert de success
   //Si no devuelve uno de error
-  deleteCenter(id:number){
+  deleteCenter(id:number, name:string){
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: "You are going to delete center "+name,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

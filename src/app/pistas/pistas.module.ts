@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { TableModule } from 'primeng/table';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -16,7 +17,8 @@ import { TableModule } from 'primeng/table';
     ListComponent,
     ItemComponent,
     SidebarComponent,
-    MainComponent
+    MainComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { TableModule } from 'primeng/table';
     ListComponent,
     ItemComponent,
     SidebarComponent,
-    MainComponent
+    MainComponent,
+    SearchComponent
   ]
 })
 export class PistasModule { }

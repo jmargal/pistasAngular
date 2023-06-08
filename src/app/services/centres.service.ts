@@ -28,8 +28,8 @@ export class CentresService {
   }
 
   //Obtiene el centro con el nombre que se le pasa por parametro
-  getCenterByName(name: string): Observable<Center>{
-    return this.http.get<Center>(`${this.url}/centerByName/${name}`)
+  getCenterByName(name: String): Observable<any>{
+    return this.http.get<any>(`${this.url}/centerByName/${name}`)
   }
 
   //Borra el centro que se le pasa por parametro

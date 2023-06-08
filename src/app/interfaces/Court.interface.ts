@@ -3,6 +3,7 @@ export interface Court{
   sport: string;
   img: string;
   price: number;
+  idCentre: number;
 }
 
 export interface addCourt{

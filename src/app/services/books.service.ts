@@ -20,4 +20,11 @@ export class BooksService {
   booksOfAnUser(nick:string){
     return this.http.get<Reservation[]>(`${this.url}/${nick}`);
   }
+
+  deleteBook(book:Reservation){
+    const options = {
+      body: book
+    };
+    return this.http.delete(`${this.url}`,options)
+  }
 }

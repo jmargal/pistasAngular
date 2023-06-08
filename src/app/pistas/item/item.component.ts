@@ -23,11 +23,7 @@ const moment = require('moment');
 })
 export class ItemComponent implements OnInit {
   constructor(private route: ActivatedRoute, private courtSvc: CourtService,
-    private formBld:FormBuilder,private userSvc:UserService,private cookieSvc:CookieService)
-    {
-
-    }
-
+    private formBld:FormBuilder,private userSvc:UserService,private cookieSvc:CookieService){}
 
   court!: Court;
   //Parametro del id de la pista
@@ -80,6 +76,7 @@ export class ItemComponent implements OnInit {
     this.courtSvc.getCourt(this.id).subscribe({
       next: (resp) => {
         this.court = resp;
+        this.paintCalendar(); // Mover aquí la llamada a paintCalendar()
       },
       error: (err) => {
         console.log(err);
@@ -87,13 +84,14 @@ export class ItemComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
+        });
       },
     });
-    //Al iniciarse obtiene el usuario logueado
+
+    // Al iniciarse obtiene el usuario logueado
     this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
-      next:(resp)=>{
-        this.user=resp;
+      next: (resp) => {
+        this.user = resp;
       },
       error: (err) => {
         console.log(err);
@@ -101,12 +99,11 @@ export class ItemComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
-      }
-    })
-    //Pinta con las reservas ya hechas
-    this.paintCalendar();
+        });
+      },
+    });
   }
+
   //Maneja la fecha donde han hecho click
   handleDateClick(arg: any) {
     this.handleDateSelect(arg)
@@ -135,12 +132,7 @@ export class ItemComponent implements OnInit {
       }).then((result) => {
         //Si confirma muestra un alert success y hace la reserva
         if (result.isConfirmed) {
-          Swal.fire(
-            'Reserve complete!',
-            'Your reservation has been addedd successfully',
-            'success'
-          )
-          this.addReserve()
+          this.addReserve();
         }
       })
 
@@ -181,23 +173,31 @@ export class ItemComponent implements OnInit {
 }
 
   //Va a enviar los datos que se necesitan para hacer la reserva
-  addReserve(){
-    const username=this.user.username
-    const idCourt=this.court.idCourt
-    const idHorary=this.myForm.controls['idHorary'].value
-    const dateStamp=this.myForm.controls['dateStamp'].value
-    const reserveDate=this.myForm.controls['reserveDate'].value
-    this.courtSvc.makeReservation(username,idCourt,idHorary,dateStamp,reserveDate).subscribe({
-      next:(resp)=>{
+  addReserve() {
+    const username = this.user.username;
+    const idCourt = this.court.idCourt;
+    const idHorary = this.myForm.controls['idHorary'].value;
+    const dateStamp = this.myForm.controls['dateStamp'].value;
+    const reserveDate = this.myForm.controls['reserveDate'].value;
+    this.courtSvc.makeReservation(username, idCourt, idHorary, dateStamp, reserveDate).subscribe({
+      next: (resp) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Reserve complete!',
+          text: 'Your reservation has been added successfully',
+        }).then(() => {
+          this.paintCalendar(); // Actualizar el calendario después de completar la reserva
+        });
       },
-      error:(err)=>{
+      error: (err) => {
         Swal.fire({
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
-      }
-    })
+        });
+      },
+    });
   }
+
 
 }

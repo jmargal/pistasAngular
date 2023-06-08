@@ -1,9 +1,6 @@
 <div class="container" *ngIf="court">
   <h1>Id of the Court: {{court.idCourt}}/{{court.sport}}</h1>
   <div class="row col-sm-12">
-    <!-- <div class="d-inline col-sm-4 col-md-4">
-      <img src="{{court.img}}" alt="Image of the court">
-    </div> -->
     <div id="calendar" class="col-sm-8 col-md-8" *ngIf="reservations">
       <full-calendar id="calendario" [options]="calendarOptions" ></full-calendar>
     </div>

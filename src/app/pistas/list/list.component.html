@@ -1,4 +1,4 @@
-  <div class="card-deck" >
+  <div class="card-deck">
     <div class="card carta" *ngFor="let court of courtList">
       <img class="card-img-top" src="{{court.img}}" alt="Card image cap">
       <div class="card-body">
@@ -9,8 +9,7 @@
         <li class="list-group-item">Price of court: {{court.price}}</li>
       </ul>
       <div class="card-body">
-        <a  routerLink="/court/{{court.idCourt}}" class="card-link">View disponibility</a>
-      </div>
+        <a routerLink="/court/{{court.idCourt}}" class="card-link">View disponibility</a>
       </div>
     </div>
-
+  </div>

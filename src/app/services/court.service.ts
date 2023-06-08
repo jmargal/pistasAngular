@@ -57,9 +57,9 @@ export class CourtService {
     return this.http.delete<any>(`${this.url}/deleteCourt/${id}`);
   }
 
-  updateCourt(id:number,img:File,sport:string,price:number){
+  updateCourt(id:number,img:File,sport:string,price:number,idCentre:number){
     let data: FormData = new FormData();
-    let court={sport,price}
+    let court={sport,price, idCentre}
     //Los campos del formulario los convierto en la propiedad court que espera la API
     data.append('court',new Blob([JSON.stringify(court)], {type: 'application/json'}))
     //Si hay imagen se la paso

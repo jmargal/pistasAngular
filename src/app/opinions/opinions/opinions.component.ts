@@ -23,6 +23,7 @@ export class OpinionsComponent implements OnInit {
 
   id!: number;
   opinionList!:Opinion[];
+  opinionsToShow!:Opinion[];
 
   ngOnInit(): void {
     this.id = this.actualRoute.snapshot.params['id'];
@@ -32,7 +33,8 @@ export class OpinionsComponent implements OnInit {
   loadData(){
     this.opinionSvc.getOpinions(this.id).subscribe({
       next:(value) =>{
-        this.opinionList=value;
+        this.opinionList = value;
+        this.filterOpinions();
       },
       error(err) {
         console.log(err);
@@ -45,6 +47,16 @@ export class OpinionsComponent implements OnInit {
     })
   }
 
+  filterOpinions() {
+    const today = new Date();
+    this.opinionsToShow = this.opinionList.filter(opinion => {
+      const opinionDate = new Date(opinion.datestamp);
+      return opinionDate >= today;
+    });
+  }
+
+
+  //Convierte un numero en un array de esa longitud y pone valor a cada elemento a 0
   scoreArray(puntuacion: number): any[] {
     return Array(puntuacion).fill(0);
   }

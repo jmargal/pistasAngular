@@ -4,8 +4,9 @@
       <!--Llama a la funcion con el event emitter que es pistasde... -->
       <app-sidebar [centerList]="centerList" (pistasDeEseCentro)="cargarPistas($event)"></app-sidebar>
     </div>
-    <div class="col-sm-12 col-md-8" id="cards">
-      <app-list [courtList]="courtList"></app-list>
+    <div class="col-sm-12 col-md-8" id="cards" style="display: flex; flex-direction: column;">
+      <app-search (centerName)="searchCenter($event)" style="order: 1;"></app-search>
+      <app-list [courtList]="courtList" style="order: 2; flex-grow: 1;"></app-list>
     </div>
   </div>
 </div>
