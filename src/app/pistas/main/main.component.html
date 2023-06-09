@@ -1,12 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-4" id="sidebar">
+    <div class="col-md-4 d-flex" id="sidebar">
       <!--Llama a la funcion con el event emitter que es pistasde... -->
       <app-sidebar [centerList]="centerList" (pistasDeEseCentro)="cargarPistas($event)"></app-sidebar>
     </div>
-    <div class="col-sm-12 col-md-8" id="cards" style="display: flex; flex-direction: column;">
-      <app-search (centerName)="searchCenter($event)" style="order: 1;"></app-search>
-      <app-list [courtList]="courtList" style="order: 2; flex-grow: 1;"></app-list>
+    <div class="col-md-8" id="cards">
+      <div class="row">
+        <div class="col-12" style="order: 1;">
+          <app-search (centerName)="searchCenter($event)"></app-search>
+        </div>
+        <div class="col-12" style="order: 2;">
+          <app-list [courtList]="courtList" style="flex-grow: 1;"></app-list>
+        </div>
+      </div>
     </div>
   </div>
 </div>
