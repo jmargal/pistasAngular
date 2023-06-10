@@ -6,6 +6,9 @@
     <div class="col-md-2 text-md-right">
       <a class="btn btn-primary" href="/centers">Go back</a>
     </div>
+    <div class="row" *ngIf="bookList.length==0" style="margin-top: 0.5em;">
+      <h1>You don't have bookings yet!</h1>
+    </div>
   </div>
   <div class="row justify-content-center" *ngFor="let book of bookList">
     <div class="card border-primary mb-3" style="width: 32rem;">
@@ -45,3 +48,4 @@
     </div>
   </div>
 </div>
+

@@ -1,9 +1,5 @@
 <div class="container" *ngIf="loadOpinion">
   <div class="row col-sm-12">
-    <div class="col-sm-4">
-      <img src="../../../assets/3400ef84aa3a273311454f13eb76fdaa-icono-de-engranajes-de-marketing.png" width="350px"
-        height="500px">
-    </div>
     <div class="d-inline col-sm-4">
       <div class="col-sm-12">
         <h1>Edit my opinion of court {{opinion.idCourt}}</h1>
@@ -35,8 +31,8 @@
         <a class="btn btn-primary" [routerLink]="'/court/'+opinion.idCourt+'/opinions'">Go back</a>
       </div>
     </div>
-    <div class="col-sm-4">
-      <img src="../../../assets/nuevoengranaje.png" width="350px" height="500px">
+    <div id="foto" class="d-inline col-sm-8">
+      <img class="d-block w-100 img-fluid rounded" src="../../../assets/op.jpg">
     </div>
   </div>
 </div>

@@ -1,39 +1,37 @@
 <div class="container" *ngIf="editUser">
   <div class="row col-sm-12">
-    <div class="col-sm-4">
+    <div class="col-sm-4 pantallaMedia">
       <img src="assets/silhouette-3110928_1280.webp" width="280px" height="480px">
     </div>
     <div class="d-inline col-sm-4">
       <div class="col-sm-12">
-      <h1>Edit my user!</h1>
-      <form #myForm="ngForm" (ngSubmit)="update()">
-        <div class="form-group" >
-          <label for="uname">User name</label>
-          <input type="text" class="form-control" name="uname" id="uname" ngModel [ngModel]="initForm.uname" ngModel readonly>
-        </div>
-        <div class="form-group">
-          <label for="password">Role</label>
-          <input type="text" class="form-control" id="role" name="role"ngModel [ngModel]="initForm.role" readonly>
-        </div>
-        <div class="form-group">
-          <label for="cName">Complete Name</label>
-          <input type="text" class="form-control" id="cName" name="cName" ngModel [ngModel]="initForm.cName">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" ngModel [ngModel]="initForm.email" >
-        </div>
-        <div class="form-group">
-          <label for="email">Password</label>
-          <input type="password" class="form-control" id="password" name="password" ngModel>
-          <span class="form-text text-secondary">Not required if you want to preserve
-            your actual password
-          </span>
-
-        </div><br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+        <h1>Edit my user!</h1>
+        <form #myForm="ngForm" (ngSubmit)="update()">
+          <div class="form-group">
+            <label for="uname">User name</label>
+            <input type="text" class="form-control" name="uname" id="uname" ngModel [ngModel]="initForm.uname"
+              ngModel readonly>
+          </div>
+          <div class="form-group">
+            <label for="password">Role</label>
+            <input type="text" class="form-control" id="role" name="role" ngModel [ngModel]="initForm.role" readonly>
+          </div>
+          <div class="form-group">
+            <label for="cName">Complete Name</label>
+            <input type="text" class="form-control" id="cName" name="cName" ngModel [ngModel]="initForm.cName">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" ngModel [ngModel]="initForm.email">
+          </div>
+          <div class="form-group">
+            <label for="email">Password</label>
+            <input type="password" class="form-control" id="password" name="password" ngModel>
+            <span class="form-text text-secondary">Not required if you want to preserve your actual password</span>
+          </div><br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
     </div>
     <div class="col-sm-4">
       <img src="assets/silhouette-3127330_1280.webp" width="280px" height="480px">

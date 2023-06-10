@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit {
 
 
   //Funcion que lanza el eventemitter con el id del centro que han pulsado
+  //Si es 0, es que es All centers y carga todos
   seleccionarCentro(idCentre:number): void {
     if(idCentre===0){
       this.centerSvc.getCentres().subscribe({

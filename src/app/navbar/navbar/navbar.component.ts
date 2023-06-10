@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
 
@@ -17,6 +18,8 @@ export class NavbarComponent implements OnInit {
   }
 
   isLoggedIn$!: boolean;
+  isMenuOpen = false;
+
 
 
   ngOnInit(): void {
@@ -31,5 +34,9 @@ export class NavbarComponent implements OnInit {
   //Llama al logout del service
   hacerLogout(){
     this.authSvc.logout();
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }
