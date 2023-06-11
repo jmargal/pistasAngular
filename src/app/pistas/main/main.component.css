@@ -16,3 +16,7 @@
   float: left;
   width: 80%;
 }
+
+.no-margin {
+  margin: 0;
+}

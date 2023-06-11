@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 export class MainComponent implements OnInit {
   centerList: Center[] = [];
   courtList: Court[] = [];
+  sidebarMenuVisible: boolean = true;
+
   constructor(
     private centerSvc: CentresService,
     private courtService: CourtService

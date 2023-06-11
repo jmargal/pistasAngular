@@ -67,7 +67,7 @@ export class OpinionsComponent implements OnInit {
   }
 
   checkUser(username: string): boolean {
-    return (this.cookieSvc.get('username') == username);
+    return (this.cookieSvc.get('username') == username || this.cookieSvc.get('role') == 'ADMIN');
   }
 
   deleteOpinion(idCourt:number){

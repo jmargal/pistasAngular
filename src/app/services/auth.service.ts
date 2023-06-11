@@ -76,9 +76,9 @@ export class AuthService {
     );
   }
 
-  //Borra de las cookies lps datos del usuario
+  //Borra de las cookies los datos del usuario
   logout(){
-    this.cookieSvc.deleteAll()
+    this.cookieSvc.deleteAll();
     this.loggedIn.next(false);
 
   }

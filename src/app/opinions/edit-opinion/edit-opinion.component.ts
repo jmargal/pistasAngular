@@ -99,7 +99,6 @@ export class EditOpinionComponent implements OnInit {
     const user = this.cookieSvc.get('username');
     const datestamp = this.convertHora();
     const opinion: addOpinion = { user, idCourt, comment, score, datestamp };
-    console.log(opinion)
     this.opinionSvc.updateOpinion(idOpinion, opinion).subscribe({
       next: (resp) => {
         Swal.fire({

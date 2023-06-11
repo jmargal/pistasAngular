@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4 d-flex" id="sidebar">
+    <div class="col-md-4 d-flex" id="sidebar" [ngClass]="{'no-margin': !sidebarMenuVisible}">
       <!--Llama a la funcion con el event emitter que es pistasde... -->
       <app-sidebar [centerList]="centerList" (pistasDeEseCentro)="cargarPistas($event)"></app-sidebar>
     </div>
