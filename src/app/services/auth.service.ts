@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { InterfaceLogin } from '../interfaces/InterfaceLogin';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -61,6 +62,10 @@ export class AuthService {
       );
   }
 
+  isAdmin(){
+    return this.cookieSvc.get('role')==='ADMIN';
+  }
+
   //Metodo que comprueba si un user esta registrado, devuelve un observable boolean
   isAuthenticated(): Observable<boolean> {
     //Hace una peticion(solo obtendremos respuesta si tiene un token)
@@ -69,6 +74,13 @@ export class AuthService {
         return of(true);
       }),
       catchError((err) => {
+        this.router.navigate(['']);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'You must be signed for access this resource',
+        });
         this.cookieSvc.delete('token');
 
         return of(false);

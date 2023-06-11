@@ -31,6 +31,10 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  isAdmin(){
+    return this.authSvc.isAdmin();
+  }
+
   //Llama al logout del service
   hacerLogout(){
     this.authSvc.logout();
