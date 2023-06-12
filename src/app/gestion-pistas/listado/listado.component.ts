@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Court } from 'src/app/interfaces/Court.interface';
 import { CourtService } from 'src/app/services/court.service';
 import Swal from 'sweetalert2';
 import { CentresService } from 'src/app/services/centres.service';
@@ -12,17 +11,23 @@ import { CentresService } from 'src/app/services/centres.service';
 export class ListadoComponent implements OnInit {
   constructor(
     private courtSvc: CourtService,
-    private router: Router,
     private centerSvc: CentresService
   ) {}
 
   courtList: any[] = [];
-  nameOfCenterMap: { [id: number]: string } = {};
+  nameOfCenterMap: { [id: number]: string } = {};  //Mapper que mapea un number a un strin
 
+
+  /**
+   * Carga los datos al iniciarse el componente
+   */
   ngOnInit(): void {
     this.loadData();
   }
 
+  /**
+   * Método que carga todas las pistas y les pone el nombre de su centro
+   */
   loadData() {
     this.courtSvc.getCourts().subscribe({
       next: (resp) => {
@@ -39,6 +44,9 @@ export class ListadoComponent implements OnInit {
     });
   }
 
+  /**
+   * Obtiene todos los nombres de los centros para mostrarlos en el html
+   */
   loadNameOfCenters() {
     //Bucle que por cada pista mapea su nombre de centro al idCentre
     this.courtList.forEach((court) => {
@@ -53,6 +61,11 @@ export class ListadoComponent implements OnInit {
     });
   }
 
+  /**
+   *Pregunta si se desea borrar la pista, si se confirma la borra y vuelve a cargar los datos
+   *para que estén actualizados
+   * @param id de la pista
+   */
   deleteCourt(id: number) {
     Swal.fire({
       title: 'Are you sure?',

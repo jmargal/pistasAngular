@@ -23,6 +23,9 @@ export class NewCourtComponent implements OnInit {
     private router: Router
   ) {}
 
+  /**
+   * Obtiene todos los centros para el desplegable del html
+   */
   ngOnInit(): void {
     this.centerSvc.getCentres().subscribe({
       next: (resp) => {
@@ -46,6 +49,9 @@ export class NewCourtComponent implements OnInit {
     center: ['', [Validators.required]],
   });
 
+    /**
+   * Devuelve boolean sobre si es válido el campo sport del formulario
+   */
   isValidSport() {
     return (
       this.myForm?.controls['sport'].errors &&
@@ -53,6 +59,9 @@ export class NewCourtComponent implements OnInit {
     );
   }
 
+    /**
+   * Devuelve boolean sobre si es válido el campo price del formulario
+   */
   isValidPrice() {
     return (
       this.myForm?.controls['price'].errors &&
@@ -60,16 +69,21 @@ export class NewCourtComponent implements OnInit {
     );
   }
 
-
-
+  /**
+   * Comprueba si la extensión de la imagen está entre las opciones
+   * @returns
+   */
   isValidExtension() {
     const extensions: string[] = ['.png', '.jpg', '.jpeg'];
     let stringImage: string = this.myForm?.controls['img'].value;
     return extensions.some((extension) => stringImage.endsWith(extension));
   }
 
-  //Manejar la imagen que llega del formulario
-  //Recibe el archivo del formulario con un eventBinding
+  /**
+   *Manejar la imagen que llega del formulario
+   *Recibe el archivo del formulario con un eventBinding
+   * @param event
+   */
   onFileSelected(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];
     //Si es un archivo, la propiedad del formReactive será igual a este archivo
@@ -81,6 +95,9 @@ export class NewCourtComponent implements OnInit {
     }
   }
 
+  /**
+   * Recoge los valores del formulario y añade la pista, reenvía al listado de pistas
+   */
   addCourt() {
     let sport = this.myForm.controls['sport'].value;
     let price = this.myForm.controls['price'].value;

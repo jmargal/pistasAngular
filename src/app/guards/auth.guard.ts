@@ -7,12 +7,13 @@ import { AuthService } from '../services/auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router:Router,private authSvc:AuthService){}
+  constructor(private authSvc:AuthService){}
 
-  //Si está autenticado devuelve true y si no false
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  /**
+   * Llama al método del servicio que devuelve true si está registrado y false en caso contrario
+   * @returns boolean
+   */
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authSvc.isAuthenticated();
   }
 

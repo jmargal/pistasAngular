@@ -20,6 +20,9 @@ export class NewCenterComponent {
     address: ['', [Validators.required, Validators.minLength(8)]],
   });
 
+    /**
+   * Devuelve boolean sobre si es válido el campo name del formulario
+   */
   isValidName() {
     return (
       this.myForm?.controls['name'].errors &&
@@ -27,6 +30,9 @@ export class NewCenterComponent {
     );
   }
 
+    /**
+   * Devuelve boolean sobre si es válido el campo address del formulario
+   */
   isValidAddress() {
     return (
       this.myForm?.controls['address'].errors &&
@@ -34,6 +40,9 @@ export class NewCenterComponent {
     );
   }
 
+  /**
+   *Si el nombre del centro existe salta un alert, si no envía para actualizar
+   */
   centerExists() {
     let name = this.myForm.controls['name'].value;
     this.centerSvc.getCenterByName(name).subscribe({
@@ -50,6 +59,9 @@ export class NewCenterComponent {
     });
   }
 
+  /**
+   * Recoge valores del formulario y añade el centro. Si es correcto reenvía al listado de centros
+   */
   addCenter() {
     let name = this.myForm.controls['name'].value;
     let address = this.myForm.controls['address'].value;

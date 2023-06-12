@@ -13,11 +13,16 @@ export class CentersComponent implements OnInit{
   constructor(private centerSvc:CentresService,private router:Router){}
 
   centerList!:Center[];
-  //Al iniciarse carga la lista de centros
+  /**
+   * Al iniciarse carga la lista de centros
+  */
   ngOnInit(): void {
     this.loadData()
   }
 
+  /**
+   * Obtiene todos los centros
+   */
   loadData(){
     this.centerSvc.getCentres().subscribe({
       next:(resp)=>{
@@ -34,9 +39,13 @@ export class CentersComponent implements OnInit{
     })
   }
 
-  //Recibe el id del centro a borrar
-  //Si se ha borrado muestra un alert de success
-  //Si no devuelve uno de error
+  /**
+   * Recibe el id del centro a borrar
+   * Si se ha borrado muestra un alert de success
+   * Si no devuelve uno de error
+   * @param id del centro
+   * @param name para mostrar en el alert
+   */
   deleteCenter(id:number, name:string){
     Swal.fire({
       title: 'Are you sure?',
@@ -65,6 +74,10 @@ export class CentersComponent implements OnInit{
     });
   }
 
+  /**
+   * Reenvía al compontente de actualizar centro
+   * @param id del centro
+   */
   updateCenter(id:number){
     this.router.navigate(['/manage/editCenter'])
   }

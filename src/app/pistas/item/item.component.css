@@ -1,5 +1,8 @@
 #calendario{
   max-height: 425px;
+  border-radius: 10px;
+  padding: 2px 4px;
+  font-weight: bold;
 }
 
 a{

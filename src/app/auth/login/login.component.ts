@@ -15,23 +15,27 @@ export class LoginComponent implements OnInit {
 
   logged: boolean = false;
 
-  constructor(private authSvc: AuthService, private router: Router,private cookieSvc:CookieService,
-    ) {
-    }
+  constructor(
+    private authSvc: AuthService,
+    private router: Router,
+    private cookieSvc: CookieService
+  ) {}
 
   ngOnInit(): void {}
 
-  //Coge los campos del formulario y llama al método del service, si es correcto
-  //muestra un alert de success y reenvía a centers en 1,5 segundos
-  //Si no muestra un alert de error
+  /**
+   *Coge los campos del formulario y llama al método del service, si es correcto
+   *muestra un alert de success y reenvía a centers en 1,5 segundos
+   *Si no muestra un alert de error
+   */
   login() {
     let name = this.loginForm?.controls['uname'].value;
     let password = this.loginForm?.controls['password'].value;
     this.authSvc.hacerLogin(name, password).subscribe((resp) => {
       if (resp != false) {
         this.logged = true;
-        this.cookieSvc.set("username",name)
-        let timerInterval: NodeJS.Timer ;
+        this.cookieSvc.set('username', name);
+        let timerInterval: NodeJS.Timer;
         Swal.fire({
           icon: 'success',
           title: 'Success',
@@ -45,7 +49,6 @@ export class LoginComponent implements OnInit {
             clearInterval(timerInterval);
           },
         }).then((result) => {
-
           this.router.navigate(['/centers']);
         });
       } else {

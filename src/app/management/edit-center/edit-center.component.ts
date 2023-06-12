@@ -13,7 +13,7 @@ export class EditCenterComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private centerSvc: CentresService,
-    private router:Router
+    private router: Router
   ) {}
 
   center!: Center;
@@ -27,6 +27,9 @@ export class EditCenterComponent implements OnInit {
     address: '',
   };
 
+  /**
+   *Obtiene el centro a editar según el id y carga sus datos en el objeto de formulario
+   */
   ngOnInit(): void {
     this.centerSvc.getCenter(this.id).subscribe({
       next: (resp) => {
@@ -42,11 +45,14 @@ export class EditCenterComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
+        });
       },
     });
   }
 
+  /**
+   *Si el nombre del centro existe salta un alert, si no envía para actualizar
+   */
   centerExists() {
     let name = this.myForm.controls['name'].value;
     this.centerSvc.getCenterByName(name).subscribe({
@@ -62,15 +68,29 @@ export class EditCenterComponent implements OnInit {
       },
     });
   }
-
+  /**
+   * Devuelve boolean sobre si es válido el campo name del formulario
+   */
   isValidName() {
-    return this.myForm?.controls['name'].invalid && this.myForm?.controls['name']?.touched
+    return (
+      this.myForm?.controls['name'].invalid &&
+      this.myForm?.controls['name']?.touched
+    );
   }
 
+    /**
+   * Devuelve boolean sobre si es válido el campo address del formulario
+   */
   isValidAddress() {
-    return this.myForm?.controls['address'].invalid && this.myForm?.controls['address']?.touched
+    return (
+      this.myForm?.controls['address'].invalid &&
+      this.myForm?.controls['address']?.touched
+    );
   }
 
+  /**
+   *Recoge los valores del formulario y actualiza, si es correcto, reenvía a la lista de centros
+   */
   update() {
     let name = this.myForm.controls['name'].value;
     let address = this.myForm.controls['address'].value;
@@ -83,7 +103,6 @@ export class EditCenterComponent implements OnInit {
           text: 'Center updated',
         });
         this.router.navigate(['/manage/centers']);
-
       },
       //Si hay error muestra un alert fallido
       error: (err) => {

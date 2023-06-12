@@ -25,6 +25,9 @@ export class OpinionsComponent implements OnInit {
   opinionList!:Opinion[];
   opinionsToShow!:Opinion[];
 
+  /**
+   * Carga la pista
+   */
   ngOnInit(): void {
     this.id = this.actualRoute.snapshot.params['id'];
     this.loadData();
@@ -34,7 +37,6 @@ export class OpinionsComponent implements OnInit {
     this.opinionSvc.getOpinions(this.id).subscribe({
       next:(value) =>{
         this.opinionList = value;
-        this.filterOpinions();
       },
       error(err) {
         console.log(err);
@@ -47,29 +49,36 @@ export class OpinionsComponent implements OnInit {
     })
   }
 
-  filterOpinions() {
-    const today = new Date();
-    this.opinionsToShow = this.opinionList.filter(opinion => {
-      const opinionDate = new Date(opinion.datestamp);
-      return opinionDate >= today;
-    });
-  }
-
-
-  //Convierte un numero en un array de esa longitud y pone valor a cada elemento a 0
+  /**
+   * Convierte un numero en un array de esa longitud y pone valor a cada elemento a 0
+  */
   scoreArray(puntuacion: number): any[] {
     return Array(puntuacion).fill(0);
   }
 
+  /**
+   * Devuelve la fecha formateada
+   * @param dateStamp String
+   * @returns Fecha en formato
+   */
   convertFecha(dateStamp:string){
     const date = new Date(dateStamp);
     return this.datePipe.transform(date, 'HH:mm:ss dd/MM/yyyy');
   }
 
+  /**
+   * Comprueba si el usuario de esa opinion es el que esta registrado o es admin para permitir en el html manipularla
+   * @param username
+   * @returns Boolean
+   */
   checkUser(username: string): boolean {
     return (this.cookieSvc.get('username') == username || this.cookieSvc.get('role') == 'ADMIN');
   }
 
+  /**
+   * Pregunta si se quiere borrar la opinion, si se confirma borra y vuelve a cargar los datos
+   * @param idCourt
+   */
   deleteOpinion(idCourt:number){
     this.opinionSvc.deleteOpinion(idCourt).subscribe({
       next:(value)=> {
@@ -86,6 +95,10 @@ export class OpinionsComponent implements OnInit {
     })
   }
 
+  /**
+   * Redirige al componente para actualizar la opinion
+   * @param id
+   */
   updateOpinion(id:number){
     this.router.navigate([`court/${id}/editOpinion`])
   }

@@ -4,7 +4,6 @@ import { Reservation } from 'src/app/interfaces/Reservation.interface';
 import { BooksService } from 'src/app/services/books.service';
 import { CourtService } from 'src/app/services/court.service';
 import { Court } from '../../interfaces/Court.interface';
-import { Observable, catchError, map, of } from 'rxjs';
 import Swal from 'sweetalert2';
 import { CentresService } from 'src/app/services/centres.service';
 import { Center } from 'src/app/interfaces/Center.interface';
@@ -19,23 +18,27 @@ export class MyBooksComponent implements OnInit {
     private cookieSvc: CookieService,
     private courtSvc: CourtService,
     private centerSvc: CentresService
-
   ) {}
 
   user!: string;
   bookList!: Reservation[];
   courtList: Court[] = [];
-  centerList:Center[] = [];
-  court!:Court;
+  centerList: Center[] = [];
+  court!: Court;
 
-
+  /**
+   *Al iniciarse el componente obtiene el nombre del usuario registrado
+   *Llama a los métodos que cargan los datos
+   */
   ngOnInit(): void {
     this.user = this.cookieSvc.get('username');
     this.loadData();
     this.loadCourts();
-
   }
 
+  /**
+   * Carga las reservas de un usuario y todos los centros
+   */
   loadData() {
     this.bookSvc.booksOfAnUser(this.user).subscribe({
       next: (resp) => {
@@ -44,23 +47,34 @@ export class MyBooksComponent implements OnInit {
     });
     this.centerSvc.getCentres().subscribe({
       next: (resp) => {
-        this.centerList=resp
-      }
-    })
+        this.centerList = resp;
+      },
+    });
   }
-
+  /**
+   * Carga todas las pistas
+   */
   loadCourts() {
     this.courtSvc.getCourts().subscribe({
-      next:(resp) => {
+      next: (resp) => {
         this.courtList = resp;
-      }
+      },
     });
   }
 
+  /**
+   * Recibe el id de una pista y devuelve el nombre de su centro
+   * @param idCourt
+   * @returns nombre del centro
+   */
   getCenterName(idCourt: number): string {
+    //Encuentra la pista que recibe por argumento en la lista de pistas
     const court = this.courtList.find((court) => court.idCourt === idCourt);
     if (court) {
-      const center = this.centerList.find((center) => center.idCentre === court.idCentre);
+      //Busca el centro que coincida su id con el id de la pista
+      const center = this.centerList.find(
+        (center) => center.idCentre === court.idCentre
+      );
       if (center) {
         return center.name;
       }
@@ -68,7 +82,11 @@ export class MyBooksComponent implements OnInit {
     return '';
   }
 
-
+  /**
+   *Devuelve el deporte de la pista que se le pasa por parámetro
+   * @param courtId
+   * @returns Deporte de la pisya
+   */
   getCourtSport(courtId: number): string {
     //Encuentra la pista en el array que coincide con el id
     const court = this.courtList.find((court) => court.idCourt === courtId);
@@ -76,7 +94,12 @@ export class MyBooksComponent implements OnInit {
     return court ? court.sport : '';
   }
 
-  deleteBook(book:Reservation){
+  /**
+   *Pregunta si se quiere borrar la reserva, si se confirma, la borra y vuelve a llamar a los
+   *métodos que cargan datos para que se recargue el componente
+   * @param book
+   */
+  deleteBook(book: Reservation) {
     Swal.fire({
       title: 'Are you sure?',
       text: `You are going to cancel this reservation in court ${book.idCourt} on ${book.fechaReservada}`,

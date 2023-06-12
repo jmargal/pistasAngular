@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/User.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +11,7 @@ import { Observable } from 'rxjs';
 export class NavbarComponent implements OnInit {
 
 
-  constructor(private router:Router,private authSvc:AuthService,private cookieSvc:CookieService) {
+  constructor(private router:Router,private authSvc:AuthService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -21,9 +19,10 @@ export class NavbarComponent implements OnInit {
   isMenuOpen = false;
 
 
-
+  /**
+   * Llama al Svc para comprobar si hay user autenticado para saber que mostrar en el navbar
+   */
   ngOnInit(): void {
-    //Llama al Svc para comprobar si hay user autenticado para saber que mostrar en el navbar
     this.authSvc.isLoggedIn.subscribe({
       next:(resp)=>{
         this.isLoggedIn$=resp;
@@ -31,15 +30,24 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  /**
+   * Devuelve si el user registrado es admin para saber qué mostrar en la barra de navegación
+   * @returns Booelan
+   */
   isAdmin(){
     return this.authSvc.isAdmin();
   }
 
-  //Llama al logout del service
+  /**
+   * Llama al logout del service que borra todas las cookies y manda a la pantalla de login
+   */
   hacerLogout(){
     this.authSvc.logout();
   }
 
+  /**
+   * Cambia la propiedad para saber si el navbar tiene que mostrarse entero o ser un dropdown
+   */
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
   }

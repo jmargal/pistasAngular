@@ -25,14 +25,16 @@ export class EditCourtComponent implements OnInit {
   centerList!: Center[];
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-
   myForm: FormGroup = this.formbuilder.group({
-    sport:['',[Validators.required,Validators.minLength(3)]],
-    price:['',[Validators.required,Validators.min(3)]],
-    center: [null,[Validators.required]],
+    sport: ['', [Validators.required, Validators.minLength(3)]],
+    price: ['', [Validators.required, Validators.min(3)]],
+    center: [null, [Validators.required]],
     img: [null],
   });
 
+  /**
+   * Obtiene la pista según el id por ruta y obtiene todos los centros
+   */
   ngOnInit(): void {
     this.id = this.actualRoute.snapshot.params['id'];
     this.courtSvc.getCourt(this.id).subscribe({
@@ -45,8 +47,8 @@ export class EditCourtComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
-      }
+        });
+      },
     });
     this.centerSvc.getCentres().subscribe({
       next: (resp) => {
@@ -58,11 +60,14 @@ export class EditCourtComponent implements OnInit {
           icon: 'error',
           title: 'Ooops...',
           text: 'It seems there was an error',
-        })
+        });
       },
     });
   }
 
+  /**
+   * Devuelve boolean sobre si es válido el campo sport del formulario
+   */
   isValidSport() {
     return (
       this.myForm?.controls['sport'].errors &&
@@ -70,6 +75,9 @@ export class EditCourtComponent implements OnInit {
     );
   }
 
+   /**
+   * Devuelve boolean sobre si es válido el campo price del formulario
+   */
   isValidPrice() {
     return (
       this.myForm?.controls['price'].errors &&
@@ -77,10 +85,11 @@ export class EditCourtComponent implements OnInit {
     );
   }
 
-
-
-  //Manejar la imagen que llega del formulario
-  //Recibe el archivo del formulario con un eventBinding
+  /**
+   *Recibe el archivo del formulario con un eventBinding
+   *Manejar la imagen que llega del formulario
+   * @param event
+   */
   onFileSelected(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];
     //Si es un archivo, la propiedad del formReactive será igual a este archivo
@@ -92,28 +101,33 @@ export class EditCourtComponent implements OnInit {
     }
   }
 
-  update(){
-    let sport=this.myForm?.controls['sport'].value
-    let price=this.myForm?.controls['price'].value
+  /**
+   * Obitene todos los campos del formulario y hace la petición para actualizar
+   */
+  update() {
+    let sport = this.myForm?.controls['sport'].value;
+    let price = this.myForm?.controls['price'].value;
     let img = this.myForm.get('img');
-    let idCenter=this.myForm?.controls['center'].value;
-    this.courtSvc.updateCourt(this.id,img?.value,sport,price,idCenter).subscribe({
-      next:(value)=> {
-        Swal.fire({
-          icon: 'success',
-          title: 'Updated!',
-          text: 'Court updated successfully',
-        });
-        this.router.navigate(['manage/courts']);
-      },
-      error(err) {
+    let idCenter = this.myForm?.controls['center'].value;
+    this.courtSvc
+      .updateCourt(this.id, img?.value, sport, price, idCenter)
+      .subscribe({
+        next: (value) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Updated!',
+            text: 'Court updated successfully',
+          });
+          this.router.navigate(['manage/courts']);
+        },
+        error(err) {
           console.log(err);
           Swal.fire({
             icon: 'error',
             title: 'Ooops...',
             text: 'It seems there was an error',
-          })
-      },
-    })
+          });
+        },
+      });
   }
 }
