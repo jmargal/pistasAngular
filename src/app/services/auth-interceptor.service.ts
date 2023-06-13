@@ -12,6 +12,11 @@ export class AuthInterceptorService implements HttpInterceptor{
   constructor(private cookieSvc: CookieService, private router: Router) { }
 
 
+  /**
+   * Añade a todas las peticiones el token del usuario registrado
+   * @param req
+   * @param next
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     //Toma de las cookies el token
     const token = this.cookieSvc.get('token');
@@ -35,6 +40,5 @@ export class AuthInterceptorService implements HttpInterceptor{
         return throwError(err);
       })
     );
-
     }
   }

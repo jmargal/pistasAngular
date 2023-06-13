@@ -14,6 +14,9 @@ export class SearchComponent implements OnInit{
 
   }
 
+  /**
+   * Emite el string con el centro a buscar para que el componente main lo recoja
+   */
   findCenter(){
     this.centerName.emit(this.query);
     this.query='';

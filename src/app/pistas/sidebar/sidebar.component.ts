@@ -9,6 +9,7 @@ import { CentresService } from 'src/app/services/centres.service';
 })
 export class SidebarComponent implements OnInit {
 
+  //Propiedad para que salga marcado en el sidebar el centro al que se ha pulsado
   selectedCenterId: number = 0;
 
   //Va a mostrar los centros de la lista que recibe del padre
@@ -25,8 +26,11 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  //Funcion que lanza el eventemitter con el id del centro que han pulsado
-  //Si es 0, es que es All centers y carga todos
+  /**
+   * Lanza el eventemitter con el id del centro que han pulsado
+   * Si es 0, es que es All centers y carga todos
+   * @param idCentre
+   */
   seleccionarCentro(idCentre:number): void {
     if(idCentre===0){
       this.centerSvc.getCentres().subscribe({

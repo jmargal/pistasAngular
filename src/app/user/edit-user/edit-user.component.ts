@@ -23,8 +23,11 @@ export class EditUserComponent implements OnInit {
     cName:"",
     email:""
   }
-
   editUser!:User;
+
+  /**
+   * Carga el usuario que está registrado y sus datos en el objeto del formulario
+   */
   ngOnInit(): void {
     //Se recupera el usuario que esta logueado
     this.userSvc.getUser(this.cookieSvc.get("username")).subscribe({
@@ -40,11 +43,18 @@ export class EditUserComponent implements OnInit {
       },
       error:(err)=>{
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooops...',
+          text: 'It seems there was an error',
+        })
       }
     })
   }
 
-  //Envia los datos para actualizar
+  /**
+  * Obtiene los valores del formulario y edita el usuario
+  */
   update(){
     let name=this.myForm.controls['uname'].value;
     let email=this.myForm.controls['email'].value;
@@ -71,6 +81,4 @@ export class EditUserComponent implements OnInit {
       }
     })
   }
-
-
 }

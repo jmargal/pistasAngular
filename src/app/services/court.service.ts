@@ -19,31 +19,61 @@ export class CourtService {
 
   constructor(private http: HttpClient) { }
 
-  //Obtiene todas las pistas
+  /**
+   * Obtiene todas las pistas
+   * @returns Observable con todas las pistas
+   */
   getCourts(): Observable<Court[]> {
     return this.http.get<Court[]>(`${this.url}/court/list`);
   }
 
-  //Obtiene las pistas del centro que se le pasa por parametro
+  /**
+   * Obtiene las pistas del centro que se le pasa por parámetro
+   * @param id
+   * @returns Observable con una lista de pistas que coinciden
+   */
   getCourtsByCenter(id:number):Observable<Court[]>{
     return this.http.get<Court[]>(`${this.url}/court/list/${id}`)
   }
 
-  //Obtiene la pista con id que se le pasa por parametro
+  /**
+   * Obtiene la pista que se le pasa por parámetro
+   * @param id
+   * @returns Observable con la pista
+   */
   getCourt(id:number):Observable<Court>{
     return this.http.get<Court>(`${this.url}/court/${id}`)
   }
 
-  //Obtiene las reservas que están hechas sobre la pista que se para por parametro
+  /**
+   *  Obtiene las reservas que están hechas sobre la pista que se para por parametro
+   * @param id
+   * @return Observable con la lista de reservas
+   */
   public getBusyDates(id:number):Observable<Reservation[]>{
     return this.http.get<Reservation[]>(`${this.url}/reservation/court/${id}`)
   }
 
-  //Hace la reserva con los datos que se le pasan
+  /**
+   * Hace una reserva
+   * @param username
+   * @param idCourt
+   * @param idHorary
+   * @param dateStamp
+   * @param reserveDate
+   * @returns Observable de la reserva hecha
+   */
   makeReservation(username:string,idCourt:number,idHorary:string,dateStamp:string,reserveDate:string):Observable<any>{
     return this.http.post<any>(`${this.url}/reservation`,{username,idCourt,idHorary,dateStamp,reserveDate})
   }
 
+  /**
+   * Añade una pista
+   * @param court
+   * @param img
+   * @param center
+   * @returns Observable con la pista creada
+   */
   addCourt(court:addCourt,img:File,center:number){
     let data: FormData = new FormData();
     //La api espera que le pasen un form data con las dos propiedades que se le van a añadir a continuación
@@ -53,10 +83,24 @@ export class CourtService {
     return this.http.post<any>(`${this.url}/addCourt/${center}`,data)
   }
 
+  /**
+   * Borra la pista que se le pasa por parámetro
+   * @param id
+   * @returns Observable de la pista borrada
+   */
   deleteCourt(id:number){
     return this.http.delete<any>(`${this.url}/deleteCourt/${id}`);
   }
 
+  /**
+   * Actualiza una pista
+   * @param id
+   * @param img
+   * @param sport
+   * @param price
+   * @param idCentre
+   * @returns Observable con la pista actualizada
+   */
   updateCourt(id:number,img:File,sport:string,price:number,idCentre:number){
     let data: FormData = new FormData();
     let court={sport,price, idCentre}

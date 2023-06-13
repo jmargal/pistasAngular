@@ -29,6 +29,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Devuelve boolean sobre si es válido el campo name del formulario
+   */
   isValidName() {
     return (
       this.myForm?.controls['name'].errors &&
@@ -36,6 +39,9 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Devuelve boolean sobre si es válido el campo email del formulario
+   */
   isValidEmail() {
     return (
       this.myForm?.controls['email'].touched &&
@@ -43,6 +49,9 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Devuelve boolean sobre si es válido el campo cName del formulario
+   */
   isValidCname() {
     return (
       this.myForm?.controls['cName'].errors &&
@@ -50,6 +59,9 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Devuelve boolean sobre si la password cumple las condiciones
+   */
   isSecurePassword() {
     return (
       this.myForm?.controls['password'].errors &&
@@ -57,11 +69,16 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  /**
+   * Devuelve boolean sobre si las dos contraseñas son la misma
+   */
   isTheSamePassword(){
     return this.myForm.controls['repeatPassword'].touched && this.myForm.controls['repeatPassword'].value!==this.myForm.controls['password'].value
    }
 
-  //Si todas las comprobaciones son correctas envia el usuario
+  /**
+   *Obtiene valores del formulario y añade al usuario, al crearse lo loguea y envía a pantalla de centros
+   */
   add(){
     let nick=this.myForm.controls['name'].value;
     let completeName=this.myForm.controls['cName'].value;
@@ -74,7 +91,6 @@ export class RegisterComponent implements OnInit {
         this.authSvc.hacerLogin(nick,password).subscribe({
           next: (resp)=>{
             this.cookieSvc.set('username', nick);
-
           },
           error:(err)=>{
             console.log(err);

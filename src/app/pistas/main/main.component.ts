@@ -20,6 +20,9 @@ export class MainComponent implements OnInit {
     private courtService: CourtService
   ) {}
 
+  /**
+   * Carga todos los centros y todas las pistas por defecto
+   */
   ngOnInit(): void {
     //Al iniciar carga los centros en el sidebar y carga todas las pistas por defecto
     this.centerSvc.getCentres().subscribe({
@@ -38,8 +41,11 @@ export class MainComponent implements OnInit {
     this.cargarPistas(0);
   }
 
-  //Hace la peticion con las pistas del centro que le pasan por id
-  // si el id es 0 es que se acaba de cargar el componente y muestra todo
+  /**
+   * Hace la peticion con las pistas del centro que le pasan por id
+   * si el id es 0 es que se acaba de cargar el componente y muestra todo
+   * @param idCentro
+   */
   cargarPistas(idCentro: number) {
     if (idCentro != 0) {
       this.courtService.getCourtsByCenter(idCentro).subscribe({
@@ -72,6 +78,10 @@ export class MainComponent implements OnInit {
     }
   }
 
+  /**
+   * Carga el centro con ese nombre y las pistas de ese centro o bien si se busca a vacío recarga el componente
+   * @param name
+   */
   searchCenter(name: String) {
     if (name !== '') {
       this.centerSvc.getCenterByName(name).subscribe({

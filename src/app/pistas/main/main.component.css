@@ -7,8 +7,6 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-
-
 }
 
 #cards {
@@ -19,4 +17,14 @@
 
 .no-margin {
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 30%;
+  }
+
+  #cards {
+    width: 70%;
+  }
 }

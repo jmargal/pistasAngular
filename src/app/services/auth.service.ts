@@ -29,13 +29,21 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean> (false);
 
+  /**
+   * Devuelve el boolean de si está registrado como un observable
+   */
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
 
-  //Recibe nombre y password y envia a la API, en caso de hacer login guarda en las
-  //cookies el rol, el nombre y el token
+  /**
+   * Recibe nombre y password y envia a la API, en caso de hacer login guarda en las
+   * cookies el rol, el nombre y el token
+   * @param username
+   * @param password
+   * @returns observable boolean
+   */
   hacerLogin(username: string, password: string) {
     return this.http.post<InterfaceLogin>(`${this.url}/signin`,{username,password },this.httpOptions)
       .pipe(
@@ -62,11 +70,18 @@ export class AuthService {
       );
   }
 
+  /**
+   * Devuelve true si el usuario es admin y false en caso contrario
+   * @returns Boolean de si el usuario es admin
+   */
   isAdmin(){
     return this.cookieSvc.get('role')==='ADMIN';
   }
 
-  //Metodo que comprueba si un user esta registrado, devuelve un observable boolean
+  /**
+   * Metodo que comprueba si un user esta registrado, devuelve un observable boolean
+   * @returns Observable boolean
+   */
   isAuthenticated(): Observable<boolean> {
     //Hace una peticion(solo obtendremos respuesta si tiene un token)
     return this.http.get(this.url + '/times').pipe(
@@ -75,25 +90,22 @@ export class AuthService {
       }),
       catchError((err) => {
         this.router.navigate(['']);
-
         Swal.fire({
           icon: 'error',
           title: 'Ooops...',
           text: 'You must be signed for access this resource',
         });
         this.cookieSvc.delete('token');
-
         return of(false);
       })
     );
   }
 
-  //Borra de las cookies los datos del usuario
+  /**
+   * Borra de las cookies los datos del usuario
+   */
   logout(){
     this.cookieSvc.deleteAll();
     this.loggedIn.next(false);
-
   }
-
-
 }
