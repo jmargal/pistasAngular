@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   /**
-   *Coge los campos del formulario y llama al método del service, si es correcto
+   *Recoge los campos del formulario y llama al método del service, si es correcto
    *muestra un alert de success y reenvía a centers en 1,5 segundos
    *Si no muestra un alert de error
    */

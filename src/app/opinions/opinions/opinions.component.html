@@ -13,6 +13,8 @@
 
         </div>
         <div class="card-body">
+          <!--Los botones de borrar o actualizar solo aparecen si la opinión es del
+          usuario registrado o este es un admin-->
           <button id="borrar" *ngIf="checkUser(opinion.user)" type="button" class="btn btn-danger"
             (click)="deleteOpinion(opinion.idOpinion)">Delete</button>
           <button id="editar" *ngIf="checkUser(opinion.user)" type="button" class="btn btn-warning"
@@ -26,6 +28,7 @@
               <blockquote class="blockquote mb-0">
                 <h5>Score</h5>
               </blockquote>
+              <!--Según la puntuación pinta ese número de estrellas-->
               <span *ngFor="let star of scoreArray(opinion.score)">
                 <img src="../../../assets/estrella.png" style="max-height: 30px;max-width: 30px; margin: 0.1em;">
               </span>
@@ -33,7 +36,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

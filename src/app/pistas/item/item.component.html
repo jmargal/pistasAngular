@@ -2,6 +2,7 @@
   <h1>Id of the Court: {{court.idCourt}}/{{court.sport}}</h1>
   <div class="row col-sm-12">
     <div id="calendar" class="col-sm-8 col-md-8" *ngIf="reservations">
+      <!--Calendario-->
       <full-calendar id="calendario" [options]="calendarOptions" ></full-calendar>
     </div>
     <div class=" col-sm-4 col-md-4">

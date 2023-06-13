@@ -41,7 +41,7 @@ export class NewCenterComponent {
   }
 
   /**
-   *Si el nombre del centro existe salta un alert, si no envía para actualizar
+   *Si el nombre del centro existe salta un alert, si no, envía para crear
    */
   centerExists() {
     let name = this.myForm.controls['name'].value;

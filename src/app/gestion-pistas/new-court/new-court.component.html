@@ -22,6 +22,7 @@
             <label for="img">Image</label>
             <input type="file" class="form-control" formControlName="img" (change)="onFileSelected($event)" required #fileInput>
           </div>
+          <!--Desplegable para seleccionar el centro al que pertenece la pista-->
           <div class="form-group">
             <label for="center">Center</label>
             <select class="form-select" formControlName="center" required>
