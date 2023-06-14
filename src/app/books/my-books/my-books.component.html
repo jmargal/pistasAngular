@@ -4,7 +4,7 @@
       <h1>My bookings</h1>
     </div>
     <div class="col-md-2 text-md-right">
-      <a class="btn btn-primary" href="/centers">Go back</a>
+      <a class="btn btn-primary" [routerLink]="['/centers']">Go back</a>
     </div>
     <!-- Si no hay reservas muestra un mensaje -->
     <div class="row" *ngIf="bookList.length==0" style="margin-top: 0.5em;">
