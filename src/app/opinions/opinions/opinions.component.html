@@ -17,7 +17,7 @@
           usuario registrado o este es un admin-->
           <button id="borrar" *ngIf="checkUser(opinion.user)" type="button" class="btn btn-danger"
             (click)="deleteOpinion(opinion.idOpinion)">Delete</button>
-          <button id="editar" *ngIf="checkUser(opinion.user)" type="button" class="btn btn-warning"
+          <button id="editar" *ngIf="isTheSameUser(opinion.user)" type="button" class="btn btn-warning"
             (click)="updateOpinion(opinion.idOpinion)" style="margin-right: 0.2em;">Update</button>
           <blockquote class="blockquote mb-0">
             <p>{{opinion.comment}}</p>

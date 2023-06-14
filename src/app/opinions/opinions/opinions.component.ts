@@ -76,6 +76,15 @@ export class OpinionsComponent implements OnInit {
   }
 
   /**
+   * Comprueba si es del mismo usuario que ha hecho la opinion para editarla
+   * @param username
+   * @returns Boolean
+   */
+  isTheSameUser(username: string): boolean {
+    return (this.cookieSvc.get('username') == username)
+  }
+
+  /**
    * Pregunta si se quiere borrar la opinion, si se confirma borra y vuelve a cargar los datos
    * @param idCourt
    */
