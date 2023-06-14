@@ -9,8 +9,8 @@ import { addCourt } from '../interfaces/Court.interface';
   providedIn: 'root'
 })
 export class CourtService {
-  // private url: string = 'https://pistasapi-production.up.railway.app';
-  private url:string='http://localhost:9100'
+  private url: string = 'https://pistasapi-production.up.railway.app';
+  // private url:string='http://localhost:9100'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

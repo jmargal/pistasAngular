@@ -11,8 +11,8 @@ export class OpinionsService {
 
   constructor(private http: HttpClient) { }
 
-  // private url: string = 'https://pistasapi-production.up.railway.app';
-  private url:string='http://localhost:9100/opinions'
+  private url: string = 'https://pistasapi-production.up.railway.app/opinions';
+  // private url:string='http://localhost:9100/opinions'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
