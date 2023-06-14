@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="bookList">
   <div class="row align-items-center" style="margin: 0.5em;">
     <div class="col">
       <h1>My bookings</h1>
@@ -6,48 +6,48 @@
     <div class="col-md-2 text-md-right">
       <a class="btn btn-primary" href="/centers">Go back</a>
     </div>
-    <!-- Si no hay reservas muestra un mensaje -->
+    <!--Si no hay reservas muestra un mensaje-->
     <div class="row" *ngIf="bookList.length==0" style="margin-top: 0.5em;">
       <h1>You don't have bookings yet!</h1>
     </div>
   </div>
-  <!-- Si hay reservas hace un bucle y carga las cards -->
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8" *ngFor="let book of bookList">
-      <div class="card border-primary mb-3">
-        <div class="card-header d-flex justify-content-between align-items-center" *ngIf="courtList">
-          <div>
-            <h5>Center name: {{ getCenterName(book.idCourt) }}</h5>
-            <h5>Sport: {{ getCourtSport(book.idCourt) }}</h5>
-          </div>
-          <div>
-            <button type="button" class="btn btn-danger" (click)="deleteBook(book)">Delete</button>
-          </div>
+  <!--Si hay reservas hace un bucle y carga las cards-->
+  <div class="row justify-content-center" *ngFor="let book of bookList">
+    <div class="card border-primary mb-3" style="width: 32rem;">
+      <div class="card-header d-flex justify-content-between align-items-center" *ngIf="courtList">
+        <div>
+          <h5>Center name: {{ getCenterName(book.idCourt) }}</h5>
+          <h5>Sport: {{ getCourtSport(book.idCourt) }}</h5>
         </div>
+        <div>
+          <button type="button" class="btn btn-danger" (click)="deleteBook(book)">Delete</button>
+        </div>
+      </div>
 
-        <div class="card-body text-primary">
-          <h5 class="card-title mt-3">
-            Date when you did the booking: {{book.fechaReserva}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-              <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-            </svg>
-          </h5>
-          <h5 class="card-title mt-3">
-            Reservation date: {{book.fechaReservada}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
-              <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-            </svg>
-          </h5>
-          <h5 class="card-title mt-3">
-            Time you have the court: {{book.hour}}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-top" viewBox="0 0 16 16">
-              <path d="M2 14.5a.5.5 0 0 0 .5.5h11a.5.5 0 1 0 0-1h-1v-1a4.5 4.5 0 0 0-2.557-4.06c-.29-.139-.443-.377-.443-.59v-.7c0-.213.154-.451.443-.59A4.5 4.5 0 0 0 12.5 3V2h1a.5.5 0 0 0 0-1h-11a.5.5 0 0 0 0 1h1v1a4.5 4.5 0 0 0 2.557 4.06c.29.139.443.377.443.59v.7c0 .213-.154.451-.443.59A4.5 4.5 0 0 0 3.5 13v1h-1a.5.5 0 0 0-.5.5zm2.5-.5v-1a3.5 3.5 0 0 1 1.989-3.158c.533-.256 1.011-.79 1.011-1.491v-.702s.18.101.5.101.5-.1.5-.1v.7c0 .701.478 1.236 1.011 1.492A3.5 3.5 0 0 1 11.5 13v1h-7z"/>
-            </svg>
-          </h5>
-        </div>
+
+      <div class="card-body text-primary">
+        <h5 class="card-title mt-3">
+          Date when you did the booking: {{book.fechaReserva}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+          </svg>
+        </h5>
+        <h5 class="card-title mt-3">
+          Reservation date: {{book.fechaReservada}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+          </svg>
+        </h5>
+        <h5 class="card-title mt-3">
+          Time you have the court: {{book.hour}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-top" viewBox="0 0 16 16">
+            <path d="M2 14.5a.5.5 0 0 0 .5.5h11a.5.5 0 1 0 0-1h-1v-1a4.5 4.5 0 0 0-2.557-4.06c-.29-.139-.443-.377-.443-.59v-.7c0-.213.154-.451.443-.59A4.5 4.5 0 0 0 12.5 3V2h1a.5.5 0 0 0 0-1h-11a.5.5 0 0 0 0 1h1v1a4.5 4.5 0 0 0 2.557 4.06c.29.139.443.377.443.59v.7c0 .213-.154.451-.443.59A4.5 4.5 0 0 0 3.5 13v1h-1a.5.5 0 0 0-.5.5zm2.5-.5v-1a3.5 3.5 0 0 1 1.989-3.158c.533-.256 1.011-.79 1.011-1.491v-.702s.18.101.5.101.5-.1.5-.1v.7c0 .701.478 1.236 1.011 1.492A3.5 3.5 0 0 1 11.5 13v1h-7z"/>
+          </svg>
+        </h5>
       </div>
     </div>
   </div>
 </div>
+
