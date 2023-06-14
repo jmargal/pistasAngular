@@ -21,7 +21,7 @@ export class MyBooksComponent implements OnInit {
   ) {}
 
   user!: string;
-  bookList!: Reservation[];
+  bookList: Reservation[]=[];
   courtList: Court[] = [];
   centerList: Center[] = [];
   court!: Court;

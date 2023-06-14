@@ -176,6 +176,9 @@ export class ItemComponent implements OnInit {
     let ocupadas = [];
     for (let i = 0; i < this.reservations.length; i++) {
       let hora = this.reservations[i].hour.split('-');
+      if(hora[0]=='9:00'){
+        hora[0] = '09:00';
+      }
       let ocupado = {
         id: i.toString(),
         title: 'OCUPADA',
