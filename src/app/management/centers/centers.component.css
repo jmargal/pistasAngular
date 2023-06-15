@@ -1,0 +1,28 @@
+@media (max-width: 450px) {
+  td button{
+    display: flex;
+    flex-direction: column;
+    max-width: 70px;
+    font-size: x-small;
+    margin-bottom: 0.5em;
+
+  }
+
+  td{
+    font-size: x-small;
+    max-width: 15%;
+  }
+
+  tr{
+    font-size: x-small;
+    max-width: 15%;
+  }
+  .p-element{
+    font-size: small;
+  }
+}
+button{
+  margin-left: 0.5em;
+
+}
+

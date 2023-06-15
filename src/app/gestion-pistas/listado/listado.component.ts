@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CourtService } from 'src/app/services/court.service';
 import Swal from 'sweetalert2';
 import { CentresService } from 'src/app/services/centres.service';
@@ -7,6 +6,7 @@ import { CentresService } from 'src/app/services/centres.service';
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
+  styleUrls:['./listado.component.css']
 })
 export class ListadoComponent implements OnInit {
   constructor(

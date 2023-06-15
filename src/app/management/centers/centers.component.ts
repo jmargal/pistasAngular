@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-centers',
-  templateUrl: './centers.component.html'
+  templateUrl: './centers.component.html',
+  styleUrls:['./centers.component.css']
 })
 export class CentersComponent implements OnInit{
 
