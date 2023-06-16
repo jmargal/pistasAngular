@@ -69,6 +69,7 @@ export class EditUserComponent implements OnInit {
           title: 'Success',
           text: 'User updated',
         })
+        this.myForm.controls['password'].setValue('');
       },
       //Si hay error muestra un alert fallido
       error:(err)=>{

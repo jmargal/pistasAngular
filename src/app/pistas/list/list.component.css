@@ -7,3 +7,11 @@
 .input-group {
   width: auto;
 }
+
+@media(max-width:450px){
+  .carta {
+    width: 15rem;
+    margin: 0.3rem;
+    float: left;
+  }
+}

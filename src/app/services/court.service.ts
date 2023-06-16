@@ -93,7 +93,7 @@ export class CourtService {
   }
 
   /**
-   * Actualiza una pista
+   * Actualiza una pista, llegue una imagen o no
    * @param id
    * @param img
    * @param sport
@@ -101,19 +101,19 @@ export class CourtService {
    * @param idCentre
    * @returns Observable con la pista actualizada
    */
-  updateCourt(id:number,img:File,sport:string,price:number,idCentre:number){
+  updateCourt(id: number, img: any, sport: string, price: number, idCentre: number) {
     let data: FormData = new FormData();
-    let court={sport,price, idCentre}
-    //Los campos del formulario los convierto en la propiedad court que espera la API
-    data.append('court',new Blob([JSON.stringify(court)], {type: 'application/json'}))
-    //Si hay imagen se la paso
-    if(img!==null){
-      data.append('file', img,img.name);
+    let court = { sport, price, idCentre };
+    // Los campos del formulario los convierto en la propiedad court que espera la API
+    data.append('court', new Blob([JSON.stringify(court)], { type: 'application/json' }));
+    // Si hay imagen, la agrego al FormData
+    if (img) {
+      data.append('file', img, img.name);
+    } else {
+      // Si no hay imagen, agrego un archivo vacío
+      data.append('file', new Blob(), 'empty');
     }
-    //Si no hay imagen le paso la propiedad pero vacía porque asi lo espera la API
-    else{
-      data.append('file',new Blob())
-    }
-    return this.http.put<any>(`${this.url}/updateCourt/${id}`, data)
+    return this.http.put<any>(`${this.url}/updateCourt/${id}`, data);
   }
+
 }

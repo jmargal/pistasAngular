@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Center } from 'src/app/interfaces/Center.interface';
@@ -23,13 +23,13 @@ export class EditCourtComponent implements OnInit {
   court!: Court;
   id!: number;
   centerList!: Center[];
-  @ViewChild('fileInput') fileInput!: ElementRef;
+  image: File | undefined;
 
   myForm: FormGroup = this.formbuilder.group({
     sport: ['', [Validators.required, Validators.minLength(3)]],
     price: ['', [Validators.required, Validators.min(3)]],
     center: [null, [Validators.required]],
-    img: [null],
+    img: [null]
   });
 
   /**
@@ -66,7 +66,7 @@ export class EditCourtComponent implements OnInit {
   }
 
   /**
-   * Devuelve boolean sobre si es válido el campo sport del formulario
+   * Devuelve booleano sobre si es válido el campo sport del formulario
    */
   isValidSport() {
     return (
@@ -75,8 +75,8 @@ export class EditCourtComponent implements OnInit {
     );
   }
 
-   /**
-   * Devuelve boolean sobre si es válido el campo price del formulario
+  /**
+   * Devuelve booleano sobre si es válido el campo price del formulario
    */
   isValidPrice() {
     return (
@@ -86,18 +86,15 @@ export class EditCourtComponent implements OnInit {
   }
 
   /**
-   *Recibe el archivo del formulario con un eventBinding
-   *Manejar la imagen que llega del formulario
+   * Recibe el archivo del formulario con un eventBinding
+   * Maneja la imagen que llega del formulario
    * @param event
    */
   onFileSelected(event: any) {
     const file = (event.target as HTMLInputElement).files?.[0];
-    //Si es un archivo, la propiedad del formReactive será igual a este archivo
+    // Si es un archivo, la propiedad del formReactive será igual a este archivo
     if (file) {
-      this.myForm.patchValue({
-        img: file,
-      });
-      this.myForm.get('img')?.updateValueAndValidity();
+      this.image = file;
     }
   }
 
@@ -107,27 +104,49 @@ export class EditCourtComponent implements OnInit {
   update() {
     let sport = this.myForm?.controls['sport'].value;
     let price = this.myForm?.controls['price'].value;
-    let img = this.myForm.get('img');
+    let img = this.image;
     let idCenter = this.myForm?.controls['center'].value;
-    this.courtSvc
-      .updateCourt(this.id, img?.value, sport, price, idCenter)
-      .subscribe({
-        next: (value) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Updated!',
-            text: 'Court updated successfully',
-          });
-          this.router.navigate(['manage/courts']);
-        },
-        error(err) {
-          console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Ooops...',
-            text: 'It seems there was an error',
-          });
-        },
+    //Si viene imagen y no cumple las extensiones que están en el otro meetodo salta un error
+    if (img && !this.isImageFile(img)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Image',
+        text: 'Please select a valid image file.',
       });
+    }
+    //Si no, actualiza con todos los datos
+    else {
+      this.courtSvc
+        .updateCourt(this.id, img, sport, price, idCenter)
+        .subscribe({
+          next: (value) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Updated!',
+              text: 'Court updated successfully',
+            });
+            this.router.navigate(['manage/courts']);
+          },
+          error(err) {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Ooops...',
+              text: 'It seems there was an error',
+            });
+          },
+        });
+    }
+  }
+
+  /**
+   * Devuelve boolean con el resultado de si lo que le han pasado es una imagen
+   * @param file
+   * @returns Boolean
+   */
+  isImageFile(file: File | undefined): boolean {
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+    const fileExtension = file?.name.split('.').pop()?.toLowerCase();
+    return (fileExtension !== undefined && allowedExtensions.includes(fileExtension));
   }
 }
